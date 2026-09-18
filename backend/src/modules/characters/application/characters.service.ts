@@ -7,7 +7,7 @@ import {
   CharacterSchema,
   pageSchema,
 } from '../../rick-and-morty/infrastructure/rick-and-morty.schemas.js';
-import type { CharactersQuery } from '../presentation/schemas/characters-query.schema.js';
+import type { CharactersQueryContract } from './contracts/characters-query.contract.js';
 
 @Injectable()
 export class CharactersService {
@@ -18,7 +18,7 @@ export class CharactersService {
     private readonly locations: LocationsService,
   ) {}
 
-  async list(query: CharactersQuery) {
+  async list(query: CharactersQueryContract) {
     const page = await this.api.getPage(
       'character',
       query,

@@ -1,8 +1,8 @@
-import { AccessPayload } from './modules/auth/token.service.ts';
+import type { AccessTokenPayload } from './modules/auth/domain/types/token-payload.type.js';
 declare global {
   namespace Express {
     interface Request {
-      user?: AccessPayload;
+      user?: AccessTokenPayload;
     }
   }
 }

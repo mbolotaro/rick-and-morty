@@ -1,19 +1,21 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { ApiBody, ApiCookieAuth, ApiTags } from '@nestjs/swagger';
 import { ZodValidationPipe } from '../../../common/pipes/zod-validation.pipe.js';
-import { CurrentUser } from '../../auth/current-user.decorator.js';
-import type { CurrentUserPayload } from '../../auth/current-user.decorator.js';
+import { CurrentUser } from '../../auth/presentation/decorators/current-user.decorator.js';
+import type { CurrentUserPayload } from '../../auth/presentation/decorators/current-user.decorator.js';
 import { CommentsService } from '../application/comments.service.js';
+import type { CreateCommentContract } from '../application/contracts/create-comment.contract.js';
+import type { RateCommentContract } from '../application/contracts/rate-comment.contract.js';
 import {
-  CommentResourceParamsSchema,
-  CreateCommentSchema,
-  RateCommentParamsSchema,
-  RateCommentSchema,
+  CommentResourceParamsDto,
   type CommentResourceParams,
-  type CreateCommentInput,
-  type RateCommentInput,
+} from './dto/comment-resource-params.dto.js';
+import { CreateCommentDto } from './dto/create-comment.dto.js';
+import {
+  RateCommentParamsDto,
   type RateCommentParams,
-} from './schemas/comments.schema.js';
+} from './dto/rate-comment-params.dto.js';
+import { RateCommentDto } from './dto/rate-comment.dto.js';
 
 @ApiTags('comments')
 @ApiCookieAuth('access_token')
@@ -24,7 +26,7 @@ export class CommentsController {
   @Get(':resource/:externalId')
   list(
     @CurrentUser() user: CurrentUserPayload,
-    @Param(new ZodValidationPipe(CommentResourceParamsSchema))
+    @Param(new ZodValidationPipe(CommentResourceParamsDto))
     params: CommentResourceParams,
   ) {
     return this.comments.list(
@@ -36,17 +38,13 @@ export class CommentsController {
 
   @Post(':resource/:externalId')
   @ApiBody({
-    schema: {
-      type: 'object',
-      required: ['content'],
-      properties: { content: { type: 'string', minLength: 1, maxLength: 1000 } },
-    },
+    type: CreateCommentDto,
   })
   create(
     @CurrentUser() user: CurrentUserPayload,
-    @Param(new ZodValidationPipe(CommentResourceParamsSchema))
+    @Param(new ZodValidationPipe(CommentResourceParamsDto))
     params: CommentResourceParams,
-    @Body(new ZodValidationPipe(CreateCommentSchema)) input: CreateCommentInput,
+    @Body(new ZodValidationPipe(CreateCommentDto)) input: CreateCommentContract,
   ) {
     return this.comments.create(
       user.sub,
@@ -58,17 +56,13 @@ export class CommentsController {
 
   @Put(':commentId/rating')
   @ApiBody({
-    schema: {
-      type: 'object',
-      required: ['value'],
-      properties: { value: { type: 'string', enum: ['UP', 'DOWN'] } },
-    },
+    type: RateCommentDto,
   })
   rate(
     @CurrentUser() user: CurrentUserPayload,
-    @Param(new ZodValidationPipe(RateCommentParamsSchema))
+    @Param(new ZodValidationPipe(RateCommentParamsDto))
     params: RateCommentParams,
-    @Body(new ZodValidationPipe(RateCommentSchema)) input: RateCommentInput,
+    @Body(new ZodValidationPipe(RateCommentDto)) input: RateCommentContract,
   ) {
     return this.comments.rate(user.sub, params.commentId, input);
   }

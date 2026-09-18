@@ -3,7 +3,7 @@ import { CharactersService } from '../../characters/application/characters.servi
 import { CatalogEpisodesService } from '../../episodes/application/catalog-episodes.service.js';
 import { LocationsService } from '../../locations/application/locations.service.js';
 import { PrismaService } from '../../prisma/prisma.service.js';
-import type { FavoriteResource } from '../presentation/schemas/favorite-params.schema.js';
+import type { FavoriteResource } from './contracts/favorite-resource.contract.js';
 
 @Injectable()
 export class FavoritesService {

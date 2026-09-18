@@ -10,10 +10,8 @@ import { CharactersService } from '../../characters/application/characters.servi
 import { CatalogEpisodesService } from '../../episodes/application/catalog-episodes.service.js';
 import { LocationsService } from '../../locations/application/locations.service.js';
 import { PrismaService } from '../../prisma/prisma.service.js';
-import type {
-  CreateCommentInput,
-  RateCommentInput,
-} from '../presentation/schemas/comments.schema.js';
+import type { CreateCommentContract } from './contracts/create-comment.contract.js';
+import type { RateCommentContract } from './contracts/rate-comment.contract.js';
 
 const commentInclude = {
   user: {
@@ -61,7 +59,7 @@ export class CommentsService {
     userId: string,
     resource: CatalogResource,
     externalId: number,
-    input: CreateCommentInput,
+    input: CreateCommentContract,
   ) {
     await this.assertExternalResourceExists(resource, externalId);
 
@@ -78,7 +76,7 @@ export class CommentsService {
     return this.toResponse(comment, userId);
   }
 
-  async rate(userId: string, commentId: string, input: RateCommentInput) {
+  async rate(userId: string, commentId: string, input: RateCommentContract) {
     const comment = await this.prisma.comment.findUnique({
       where: { id: commentId },
       select: { id: true },

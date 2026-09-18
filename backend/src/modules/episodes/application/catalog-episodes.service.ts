@@ -5,14 +5,14 @@ import {
   EpisodeSchema,
   pageSchema,
 } from '../../rick-and-morty/infrastructure/rick-and-morty.schemas.js';
-import type { EpisodesQuery } from '../presentation/schemas/episodes-query.schema.js';
+import type { EpisodesQueryContract } from './contracts/episodes-query.contract.js';
 @Injectable()
 export class CatalogEpisodesService {
   constructor(
     private readonly api: RickAndMortyApiClient,
     private readonly localizer: CatalogLocalizerService,
   ) {}
-  async list(query: EpisodesQuery) {
+  async list(query: EpisodesQueryContract) {
     const page = await this.api.getPage(
       'episode',
       query,

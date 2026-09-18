@@ -1,12 +1,12 @@
 import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
 import { ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { ZodValidationPipe } from '../../../common/pipes/zod-validation.pipe.js';
-import { Public } from '../../auth/public.decorator.js';
+import { Public } from '../../auth/presentation/decorators/public.decorator.js';
 import { CharactersService } from '../application/characters.service.js';
+import type { CharactersQueryContract } from '../application/contracts/characters-query.contract.js';
 import {
-  CharactersQuerySchema,
-  type CharactersQuery,
-} from './schemas/characters-query.schema.js';
+  CharactersQueryDto,
+} from './dto/characters-query.dto.js';
 import {
   CHARACTER_GENDER_VALUES,
   CHARACTER_SPECIES_VALUES,
@@ -25,7 +25,7 @@ export class CharactersController {
   @ApiQuery({ name: 'type', required: false, type: String })
   @ApiQuery({ name: 'gender', required: false, enum: CHARACTER_GENDER_VALUES })
   @Get() list(
-    @Query(new ZodValidationPipe(CharactersQuerySchema)) query: CharactersQuery,
+    @Query(new ZodValidationPipe(CharactersQueryDto)) query: CharactersQueryContract,
   ) {
     return this.characters.list(query);
   }

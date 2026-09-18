@@ -5,7 +5,7 @@ import {
   LocationSchema,
   pageSchema,
 } from '../../rick-and-morty/infrastructure/rick-and-morty.schemas.js';
-import type { LocationsQuery } from '../presentation/schemas/locations-query.schema.js';
+import type { LocationsQueryContract } from './contracts/locations-query.contract.js';
 
 @Injectable()
 export class LocationsService {
@@ -13,7 +13,7 @@ export class LocationsService {
     private readonly api: RickAndMortyApiClient,
     private readonly localizer: CatalogLocalizerService,
   ) {}
-  async list(query: LocationsQuery) {
+  async list(query: LocationsQueryContract) {
     const page = await this.api.getPage(
       'location',
       query,

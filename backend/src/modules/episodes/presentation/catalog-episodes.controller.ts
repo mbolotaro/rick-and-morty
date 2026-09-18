@@ -1,12 +1,12 @@
 import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
 import { ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { ZodValidationPipe } from '../../../common/pipes/zod-validation.pipe.js';
-import { Public } from '../../auth/public.decorator.js';
+import { Public } from '../../auth/presentation/decorators/public.decorator.js';
 import { CatalogEpisodesService } from '../application/catalog-episodes.service.js';
+import type { EpisodesQueryContract } from '../application/contracts/episodes-query.contract.js';
 import {
-  EpisodesQuerySchema,
-  type EpisodesQuery,
-} from './schemas/episodes-query.schema.js';
+  EpisodesQueryDto,
+} from './dto/episodes-query.dto.js';
 @Public()
 @ApiTags('episodes')
 @Controller('episodes')
@@ -16,7 +16,7 @@ export class CatalogEpisodesController {
   @ApiQuery({ name: 'name', required: false, type: String })
   @ApiQuery({ name: 'episode', required: false, type: String, example: 'S01E01' })
   @Get() list(
-    @Query(new ZodValidationPipe(EpisodesQuerySchema)) query: EpisodesQuery,
+    @Query(new ZodValidationPipe(EpisodesQueryDto)) query: EpisodesQueryContract,
   ) {
     return this.episodes.list(query);
   }

@@ -1,12 +1,12 @@
 import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
 import { ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { ZodValidationPipe } from '../../../common/pipes/zod-validation.pipe.js';
-import { Public } from '../../auth/public.decorator.js';
+import { Public } from '../../auth/presentation/decorators/public.decorator.js';
 import { LocationsService } from '../application/locations.service.js';
+import type { LocationsQueryContract } from '../application/contracts/locations-query.contract.js';
 import {
-  LocationsQuerySchema,
-  type LocationsQuery,
-} from './schemas/locations-query.schema.js';
+  LocationsQueryDto,
+} from './dto/locations-query.dto.js';
 
 @Public()
 @ApiTags('locations')
@@ -18,7 +18,7 @@ export class LocationsController {
   @ApiQuery({ name: 'type', required: false, type: String })
   @ApiQuery({ name: 'dimension', required: false, type: String })
   @Get() list(
-    @Query(new ZodValidationPipe(LocationsQuerySchema)) query: LocationsQuery,
+    @Query(new ZodValidationPipe(LocationsQueryDto)) query: LocationsQueryContract,
   ) {
     return this.locations.list(query);
   }

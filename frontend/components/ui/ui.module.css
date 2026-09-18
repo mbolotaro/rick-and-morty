@@ -53,6 +53,7 @@
 .textarea { min-height: 104px; resize: vertical; padding: 11px 12px; font-size: 13px; line-height: 1.5; }
 .textarea:focus { border-color: var(--color-focus-ring); box-shadow: 0 0 0 3px var(--color-accent-softer), inset 0 1px var(--color-cartoon-highlight); }
 
+.selectRoot { position: relative; width: 100%; }
 .selectTrigger {
   display: inline-flex;
   height: 42px;
@@ -67,16 +68,18 @@
 
 .selectTrigger:hover { border-color: var(--color-border-accent); background: var(--color-surface-tertiary); }
 .selectTrigger:focus-visible { border-color: var(--color-focus-ring); box-shadow: 0 0 0 3px var(--color-accent-softer); }
-.selectTrigger[data-state='open'] { border-color: var(--color-accent-primary); }
-.selectChevron { display: grid; flex: none; color: var(--color-accent-primary); transition: transform 160ms ease; }
-.selectTrigger[data-state='open'] .selectChevron { transform: rotate(180deg); }
+.selectTrigger[aria-expanded='true'] { border-color: var(--color-accent-primary); }
+.selectChevron { flex: none; color: var(--color-accent-primary); transition: transform 160ms ease; }
+.selectTrigger[aria-expanded='true'] .selectChevron { transform: rotate(180deg); }
 
-.selectContent {
+.selectMenu {
+  position: absolute;
+  top: calc(100% + 7px);
+  right: 0;
+  left: 0;
   z-index: 100;
-  width: var(--radix-select-trigger-width);
-  min-width: 170px;
-  max-height: min(360px, var(--radix-select-content-available-height));
-  overflow: hidden;
+  max-height: min(360px, calc(100dvh - 120px));
+  overflow-y: auto;
   border: 2px solid var(--color-outline-strong);
   border-radius: 14px 9px 16px 11px;
   background: var(--color-surface-primary);
@@ -84,25 +87,29 @@
   animation: select-enter 150ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.selectViewport { padding: 6px; }
 .selectItem {
   position: relative;
   display: flex;
+  width: 100%;
   min-height: 36px;
   cursor: pointer;
   user-select: none;
   align-items: center;
+  justify-content: space-between;
+  border: 0;
   padding: 7px 34px 7px 10px;
   color: var(--color-text-secondary);
   border-radius: 9px 6px 10px 7px;
   outline: 0;
+  background: transparent;
   font-size: 12px;
+  text-align: left;
 }
 
-.selectItem[data-highlighted] { color: var(--color-text-primary); background: var(--color-surface-hover); }
-.selectItem[data-state='checked'] { color: var(--color-accent-primary); background: var(--color-accent-soft); font-weight: 800; }
+.selectItem:hover,
+.selectItem:focus-visible { color: var(--color-text-primary); background: var(--color-surface-hover); }
+.selectItem[aria-selected='true'] { color: var(--color-accent-primary); background: var(--color-accent-soft); font-weight: 800; }
 .selectIndicator { position: absolute; right: 10px; display: grid; place-items: center; }
-.selectScrollButton { display: grid; height: 28px; cursor: default; place-items: center; color: var(--color-accent-primary); background: var(--color-surface-secondary); }
 
 .button {
   display: inline-flex;
@@ -135,5 +142,5 @@
   .selectChevron,
   .textarea,
   .button { transition: none; }
-  .selectContent { animation: none; }
+  .selectMenu { animation: none; }
 }

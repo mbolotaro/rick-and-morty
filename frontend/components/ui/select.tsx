@@ -1,8 +1,7 @@
 'use client';
 
-import * as SelectPrimitive from '@radix-ui/react-select';
-import { Check, ChevronDown, ChevronUp } from 'lucide-react';
-import { useState } from 'react';
+import { Check, ChevronDown } from 'lucide-react';
+import { useSelect } from '@/hooks/use-select';
 import styles from './ui.module.css';
 
 const EMPTY_VALUE = '__all_options__';
@@ -33,60 +32,66 @@ export function Select({
   disabled = false,
   className,
 }: SelectProps) {
-  const [value, setValue] = useState(defaultValue || EMPTY_VALUE);
+  const items = [{ label: placeholder, value: EMPTY_VALUE }, ...options];
+  const initialValue = defaultValue || EMPTY_VALUE;
+  const {
+    handleOptionKeyDown,
+    handleTriggerKeyDown,
+    isOpen,
+    listboxId,
+    optionRefs,
+    rootRef,
+    select,
+    triggerRef,
+    value,
+    open,
+    close,
+  } = useSelect({ initialValue, optionValues: items.map((item) => item.value) });
   const submittedValue = value === EMPTY_VALUE ? '' : value;
+  const selectedItem = items.find((item) => item.value === value) ?? items[0];
 
   return (
-    <>
+    <div className={[styles.selectRoot, className ?? ''].filter(Boolean).join(' ')} ref={rootRef}>
       <input type="hidden" name={name} value={submittedValue} />
-      <SelectPrimitive.Root value={value} onValueChange={setValue} disabled={disabled}>
-        <SelectPrimitive.Trigger
-          id={id}
-          aria-label={ariaLabel}
-          className={[styles.selectTrigger, className ?? ''].filter(Boolean).join(' ')}
-        >
-          <SelectPrimitive.Value />
-          <SelectPrimitive.Icon className={styles.selectChevron}>
-            <ChevronDown size={16} />
-          </SelectPrimitive.Icon>
-        </SelectPrimitive.Trigger>
+      <button
+        aria-controls={listboxId}
+        aria-expanded={isOpen}
+        id={id}
+        aria-label={ariaLabel}
+        className={styles.selectTrigger}
+        disabled={disabled}
+        onClick={() => (isOpen ? close() : open())}
+        onKeyDown={handleTriggerKeyDown}
+        ref={triggerRef}
+        type="button"
+      >
+        <span>{selectedItem.label}</span>
+        <ChevronDown className={styles.selectChevron} size={16} />
+      </button>
 
-        <SelectPrimitive.Portal>
-          <SelectPrimitive.Content
-            className={styles.selectContent}
-            position="popper"
-            sideOffset={7}
-            collisionPadding={10}
-          >
-            <SelectPrimitive.ScrollUpButton className={styles.selectScrollButton}>
-              <ChevronUp size={15} />
-            </SelectPrimitive.ScrollUpButton>
-            <SelectPrimitive.Viewport className={styles.selectViewport}>
-              <SelectPrimitive.Item className={styles.selectItem} value={EMPTY_VALUE}>
-                <SelectPrimitive.ItemText>{placeholder}</SelectPrimitive.ItemText>
-                <SelectPrimitive.ItemIndicator className={styles.selectIndicator}>
-                  <Check size={14} />
-                </SelectPrimitive.ItemIndicator>
-              </SelectPrimitive.Item>
-              {options.map((option) => (
-                <SelectPrimitive.Item
-                  className={styles.selectItem}
-                  value={option.value}
-                  key={option.value}
-                >
-                  <SelectPrimitive.ItemText>{option.label}</SelectPrimitive.ItemText>
-                  <SelectPrimitive.ItemIndicator className={styles.selectIndicator}>
-                    <Check size={14} />
-                  </SelectPrimitive.ItemIndicator>
-                </SelectPrimitive.Item>
-              ))}
-            </SelectPrimitive.Viewport>
-            <SelectPrimitive.ScrollDownButton className={styles.selectScrollButton}>
-              <ChevronDown size={15} />
-            </SelectPrimitive.ScrollDownButton>
-          </SelectPrimitive.Content>
-        </SelectPrimitive.Portal>
-      </SelectPrimitive.Root>
-    </>
+      {isOpen ? (
+        <div aria-labelledby={id} className={styles.selectMenu} id={listboxId} role="listbox">
+          {items.map((item, index) => {
+            const isSelected = item.value === value;
+
+            return (
+              <button
+                aria-selected={isSelected}
+                className={styles.selectItem}
+                key={item.value}
+                onClick={() => select(item.value)}
+                onKeyDown={(event) => handleOptionKeyDown(event, index, item.value)}
+                ref={(element) => { optionRefs.current[index] = element; }}
+                role="option"
+                type="button"
+              >
+                <span>{item.label}</span>
+                {isSelected ? <Check className={styles.selectIndicator} size={14} /> : null}
+              </button>
+            );
+          })}
+        </div>
+      ) : null}
+    </div>
   );
 }

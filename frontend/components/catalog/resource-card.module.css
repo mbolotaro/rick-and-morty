@@ -1,0 +1,51 @@
+.card {
+  --card-angle: -0.25deg;
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  overflow: hidden;
+  color: var(--color-text-primary);
+  border: 2px solid var(--color-outline-strong);
+  border-radius: 18px 12px 21px 14px;
+  background: linear-gradient(145deg, var(--color-surface-primary), var(--color-surface-secondary));
+  box-shadow: var(--shadow-cartoon-card);
+  opacity: 0;
+  transform: rotate(var(--card-angle));
+  animation: card-enter 380ms ease calc(min(var(--card-index), 7) * 45ms) forwards;
+  transition: transform 180ms cubic-bezier(0.2, 0.9, 0.3, 1.35), border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.card:nth-child(even) { --card-angle: 0.25deg; }
+.card:nth-child(3n) { --card-angle: -0.45deg; }
+.card:hover { border-color: var(--color-border-accent); box-shadow: var(--shadow-cartoon-card-hover); transform: translate(-2px, -5px) rotate(0deg); }
+
+.link {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  flex: 1;
+  color: inherit;
+  text-decoration: none;
+}
+
+.link > img { width: 100%; aspect-ratio: 1.45; object-fit: cover; border-bottom: 2px solid var(--color-outline-strong); }
+.card[data-has-image='false'] { min-height: 126px; }
+.card[data-has-image='false']::before { position: absolute; inset: 13px auto 13px 0; z-index: 1; width: 4px; border-radius: 0 5px 5px 0; background: var(--color-accent-primary); box-shadow: 0 0 13px var(--color-glow); content: ''; }
+
+.content { min-width: 0; padding: 13px 14px 15px; }
+.card[data-has-image='false'] .content { align-self: center; padding: 24px 20px; }
+.content > span { color: var(--color-accent-primary); font-size: 9px; font-weight: 700; letter-spacing: 0.11em; text-transform: uppercase; }
+.content h2 { overflow: hidden; margin: 5px 26px 3px 0; font-size: 14px; text-overflow: ellipsis; white-space: nowrap; }
+.content p { overflow: hidden; margin: 0; color: var(--color-text-muted); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.arrow { position: absolute; right: 13px; bottom: 17px; color: var(--color-text-muted); }
+.card:hover .arrow { color: var(--color-accent-primary); }
+
+.action { margin-top: auto; padding: 0 10px 10px; }
+.action > * { width: 100%; }
+
+@keyframes card-enter { from { opacity: 0; } to { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .card { opacity: 1; animation: none; transition: none; }
+}

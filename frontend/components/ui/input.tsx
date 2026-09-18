@@ -12,13 +12,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   ref,
 ) {
   return (
-    <span className={[
+    <div className={[
       styles.inputShell,
       controlSize === 'large' ? styles.largeControl : '',
       className ?? '',
     ].filter(Boolean).join(' ')}>
       {startIcon ? <span className={styles.controlIcon}>{startIcon}</span> : null}
       <input ref={ref} className={styles.input} {...props} />
-    </span>
+    </div>
   );
 });

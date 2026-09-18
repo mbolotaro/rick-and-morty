@@ -65,8 +65,9 @@
   box-shadow: var(--shadow-cartoon-card);
 }
 
-.filterIcon { align-self: center; color: var(--color-text-muted); }
-.filterField { min-width: 0; flex: 1; }
+.filterIcon { flex: none; align-self: center; color: var(--color-text-muted); }
+.filterField { min-width: 0; flex: 1 1 170px; }
+.filters > button { flex: none; }
 
 .resourceGrid {
   display: grid;

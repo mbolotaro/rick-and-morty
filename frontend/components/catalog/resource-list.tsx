@@ -1,14 +1,13 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { ArrowLeft, ArrowRight, Search, SlidersHorizontal } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import type { CSSProperties } from 'react';
 import { Button } from '@/components/ui/button';
 import { FormField } from '@/components/ui/form-field';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
-import type { CatalogItem, CatalogPage, CatalogResource } from '@/lib/catalog/server';
+import type { CatalogPage, CatalogResource } from '@/lib/catalog/server';
 import { getFilterOptions, type FilterName } from '@/lib/catalog/filter-options';
+import { ResourceCard } from './resource-card';
 import styles from './catalog.module.css';
 
 interface ResourceListProps {
@@ -22,12 +21,6 @@ const filterNames: Record<CatalogResource, FilterName[]> = {
   locations: ['name', 'type', 'dimension'],
   episodes: ['name', 'episode'],
 };
-
-function itemSubtitle(item: CatalogItem): string {
-  if ('status' in item) return `${item.status} · ${item.species}`;
-  if ('dimension' in item) return item.dimension;
-  return `${item.episode} · ${item.air_date}`;
-}
 
 function paginationHref(resource: CatalogResource, apiUrl: string): string {
   const queryStart = apiUrl.indexOf('?');
@@ -108,23 +101,13 @@ export function ResourceList({ resource, page, query }: ResourceListProps) {
 
       <section className={styles.resourceGrid}>
         {page.results.map((item, index) => (
-          <Link
-            className={styles.resourceCard}
-            data-has-image={'image' in item}
-            href={`/${resource}/${item.id}`}
-            style={{ '--card-index': index } as CSSProperties}
+          <ResourceCard
+            item={item}
+            index={index}
             key={item.id}
-          >
-            {'image' in item ? (
-              <Image src={item.image} alt={item.name} width={500} height={345} />
-            ) : null}
-            <div className={styles.resourceCardContent}>
-              <span>{resourceType}</span>
-              <h2>{item.name}</h2>
-              <p>{itemSubtitle(item)}</p>
-            </div>
-            <ArrowRight className={styles.resourceArrow} size={17} />
-          </Link>
+            resource={resource}
+            resourceLabel={resourceType}
+          />
         ))}
       </section>
 

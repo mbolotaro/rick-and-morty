@@ -10,9 +10,10 @@ import {
   Req,
   Res,
 } from '@nestjs/common';
-import { ApiBody, ApiCookieAuth, ApiTags } from '@nestjs/swagger';
+import { ApiCookieAuth, ApiTags } from '@nestjs/swagger';
 import type { Request, Response } from 'express';
 import { ZodValidationPipe } from '../../../common/pipes/zod-validation.pipe.js';
+import { ApiZodBody } from '../../../common/swagger/api-zod-body.decorator.js';
 import { AuthService } from '../application/auth.service.js';
 import type { SignInContract } from '../application/contracts/sign-in.contract.js';
 import type { SignUpContract } from '../application/contracts/sign-up.contract.js';
@@ -38,7 +39,7 @@ export class AuthController {
     private readonly cookies: AuthCookieService,
   ) {}
 
-  @ApiBody({ type: SignUpDto })
+  @ApiZodBody(SignUpDto)
   @Public()
   @Post('sign-up')
   async signUp(
@@ -52,7 +53,7 @@ export class AuthController {
     return { user: result.user };
   }
 
-  @ApiBody({ type: SignInDto })
+  @ApiZodBody(SignInDto)
   @Public()
   @Post('sign-in')
   async signIn(
@@ -66,7 +67,7 @@ export class AuthController {
     return { user: result.user };
   }
 
-  @ApiBody({ type: SignUpDto })
+  @ApiZodBody(SignUpDto)
   @Public()
   @Post('mobile/sign-up')
   mobileSignUp(
@@ -76,7 +77,7 @@ export class AuthController {
     return this.auth.signUp(dto, session);
   }
 
-  @ApiBody({ type: SignInDto })
+  @ApiZodBody(SignInDto)
   @Public()
   @Post('mobile/sign-in')
   mobileSignIn(
@@ -86,7 +87,7 @@ export class AuthController {
     return this.auth.signIn(dto, session);
   }
 
-  @ApiBody({ type: MobileRefreshDto })
+  @ApiZodBody(MobileRefreshDto)
   @Public()
   @Post('mobile/refresh')
   mobileRefresh(
@@ -96,7 +97,7 @@ export class AuthController {
     return this.auth.refresh(dto.refreshToken, session);
   }
 
-  @ApiBody({ type: MobileRefreshDto })
+  @ApiZodBody(MobileRefreshDto)
   @Public()
   @Post('mobile/sign-out')
   @HttpCode(HttpStatus.NO_CONTENT)

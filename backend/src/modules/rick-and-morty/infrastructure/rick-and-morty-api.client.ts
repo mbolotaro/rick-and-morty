@@ -6,31 +6,82 @@ import {
 import { translate } from '../../../common/i18n/translate.js';
 import { EnvService } from '../../env/env.service.js';
 import { z } from 'zod';
-
-export interface ExternalPage<T> {
-  info: {
-    count: number;
-    pages: number;
-    next: string | null;
-    prev: string | null;
-  };
-  results: T[];
-}
-export type ExternalQuery = Record<string, string | number | undefined>;
+import type {
+  CatalogPage,
+  CatalogQuery,
+  Character,
+  Episode,
+  Location,
+} from '../application/contracts/catalog.models.js';
+import { CatalogGateway } from '../application/ports/catalog-gateway.port.js';
+import {
+  CharacterSchema,
+  EpisodeSchema,
+  LocationSchema,
+  pageSchema,
+} from './rick-and-morty.schemas.js';
 
 interface RequestOptions<T> {
   notFoundValue: T;
 }
 
 @Injectable()
-export class RickAndMortyApiClient {
-  constructor(private readonly env: EnvService) {}
+export class RickAndMortyApiClient extends CatalogGateway {
+  constructor(private readonly env: EnvService) {
+    super();
+  }
 
-  async getPage<T>(
+  async getCharactersPage(query: CatalogQuery): Promise<CatalogPage<Character>> {
+    return this.getPage('character', query, pageSchema(CharacterSchema));
+  }
+
+  async getCharacter(id: number): Promise<Character> {
+    return this.getById('character', id, CharacterSchema);
+  }
+
+  async getResource(
+    resource: 'characters' | 'locations' | 'episodes',
+    id: number,
+  ): Promise<Character | Location | Episode> {
+    switch (resource) {
+      case 'characters':
+        return this.getCharacter(id);
+      case 'locations':
+        return this.getLocation(id);
+      case 'episodes':
+        return this.getEpisode(id);
+    }
+  }
+
+  async getEpisodesPage(query: CatalogQuery): Promise<CatalogPage<Episode>> {
+    return this.getPage('episode', query, pageSchema(EpisodeSchema));
+  }
+
+  async getEpisode(id: number): Promise<Episode> {
+    return this.getById('episode', id, EpisodeSchema);
+  }
+
+  async getEpisodes(ids: number[]): Promise<Episode[]> {
+    return this.getMany('episode', ids, EpisodeSchema);
+  }
+
+  async getLocationsPage(query: CatalogQuery): Promise<CatalogPage<Location>> {
+    return this.getPage('location', query, pageSchema(LocationSchema));
+  }
+
+  async getLocation(id: number): Promise<Location> {
+    return this.getById('location', id, LocationSchema);
+  }
+
+  async getLocations(ids: number[]): Promise<Location[]> {
+    return this.getMany('location', ids, LocationSchema);
+  }
+
+  private async getPage<T>(
     resource: string,
-    query: ExternalQuery,
-    schema: z.ZodType<ExternalPage<T>>,
-  ): Promise<ExternalPage<T>> {
+    query: CatalogQuery,
+    schema: z.ZodType<CatalogPage<T>>,
+  ): Promise<CatalogPage<T>> {
     return this.request(resource, schema, query, {
       notFoundValue: {
         info: { count: 0, pages: 0, next: null, prev: null },
@@ -39,7 +90,7 @@ export class RickAndMortyApiClient {
     });
   }
 
-  async getById<T>(
+  private async getById<T>(
     resource: string,
     id: number,
     schema: z.ZodType<T>,
@@ -47,7 +98,7 @@ export class RickAndMortyApiClient {
     return this.request(`${resource}/${id}`, schema);
   }
 
-  async getMany<T>(
+  private async getMany<T>(
     resource: string,
     ids: number[],
     schema: z.ZodType<T>,
@@ -66,7 +117,7 @@ export class RickAndMortyApiClient {
   private async request<T>(
     path: string,
     schema: z.ZodType<T>,
-    query?: ExternalQuery,
+    query?: CatalogQuery,
     options?: RequestOptions<T>,
   ): Promise<T> {
     const url = new URL(`${this.env.get('RICK_AND_MORTY_API_URL')}/${path}`);

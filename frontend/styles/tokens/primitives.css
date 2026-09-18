@@ -44,4 +44,23 @@
   --primitive-cyan-400: #63d8cb;
   --primitive-violet-400: #a28bec;
   --primitive-rose-400: #f17496;
+
+  /* Layout and motion primitives */
+  --primitive-space-1: 4px;
+  --primitive-space-2: 8px;
+  --primitive-space-3: 12px;
+  --primitive-space-4: 16px;
+  --primitive-space-5: 20px;
+  --primitive-space-6: 24px;
+  --primitive-space-8: 32px;
+  --primitive-control-height: 42px;
+  --primitive-control-height-large: 48px;
+  --primitive-control-height-small: 36px;
+  --primitive-radius-control: 12px 8px 13px 9px;
+  --primitive-radius-menu: 14px 9px 16px 11px;
+  --primitive-font-size-xs: 10px;
+  --primitive-font-size-sm: 12px;
+  --primitive-font-size-md: 13px;
+  --primitive-duration-fast: 150ms;
+  --primitive-duration-normal: 160ms;
 }

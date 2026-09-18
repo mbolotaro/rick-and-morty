@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { createZodDto } from 'nestjs-zod';
+import { createZodDto } from '../../../../common/validation/zod-dto.js';
 
-const page = z.coerce.number().int().min(1).max(1000).optional();
+const page = z.coerce.number().int().positive().optional();
 
 const locationsQuerySchema = z.object({
   page,

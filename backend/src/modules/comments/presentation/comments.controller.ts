@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
-import { ApiBody, ApiCookieAuth, ApiTags } from '@nestjs/swagger';
+import { ApiCookieAuth, ApiTags } from '@nestjs/swagger';
 import { ZodValidationPipe } from '../../../common/pipes/zod-validation.pipe.js';
+import { ApiZodBody } from '../../../common/swagger/api-zod-body.decorator.js';
 import { CurrentUser } from '../../auth/presentation/decorators/current-user.decorator.js';
 import type { CurrentUserPayload } from '../../auth/presentation/decorators/current-user.decorator.js';
 import { CommentsService } from '../application/comments.service.js';
@@ -37,9 +38,7 @@ export class CommentsController {
   }
 
   @Post(':resource/:externalId')
-  @ApiBody({
-    type: CreateCommentDto,
-  })
+  @ApiZodBody(CreateCommentDto)
   create(
     @CurrentUser() user: CurrentUserPayload,
     @Param(new ZodValidationPipe(CommentResourceParamsDto))
@@ -55,9 +54,7 @@ export class CommentsController {
   }
 
   @Put(':commentId/rating')
-  @ApiBody({
-    type: RateCommentDto,
-  })
+  @ApiZodBody(RateCommentDto)
   rate(
     @CurrentUser() user: CurrentUserPayload,
     @Param(new ZodValidationPipe(RateCommentParamsDto))

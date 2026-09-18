@@ -7,6 +7,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import type { Response } from 'express';
+import { ApplicationError } from '../errors/application-error.js';
 import { translate } from '../i18n/translate.js';
 
 type ErrorBody = Record<
@@ -30,6 +31,15 @@ export class LocalizedExceptionFilter implements ExceptionFilter {
 
   catch(exception: Error, host: ArgumentsHost): void {
     const response = host.switchToHttp().getResponse<Response>();
+
+    if (exception instanceof ApplicationError) {
+      response.status(exception.statusCode).json({
+        statusCode: exception.statusCode,
+        message: translate(exception.messageKey, exception.fallback),
+        error: this.statusTitle(exception.statusCode),
+      });
+      return;
+    }
 
     if (!(exception instanceof HttpException)) {
       this.logger.error(exception.message, exception.stack);

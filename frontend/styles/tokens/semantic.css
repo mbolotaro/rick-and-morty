@@ -49,4 +49,17 @@
 
   /* Theme-provided assets */
   --image-background-app: none;
+
+  /* Component semantics */
+  --space-control-inline: var(--primitive-space-3);
+  --space-control-gap: var(--primitive-space-2);
+  --radius-control: var(--primitive-radius-control);
+  --radius-menu: var(--primitive-radius-menu);
+  --size-control: var(--primitive-control-height);
+  --size-control-large: var(--primitive-control-height-large);
+  --size-control-small: var(--primitive-control-height-small);
+  --font-size-control: var(--primitive-font-size-md);
+  --font-size-label: var(--primitive-font-size-xs);
+  --duration-interaction: var(--primitive-duration-fast);
+  --duration-control: var(--primitive-duration-normal);
 }

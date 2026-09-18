@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { createZodDto } from 'nestjs-zod';
+import { createZodDto } from '../../../../common/validation/zod-dto.js';
 import {
   CatalogResourceSchema,
 } from '../../../../common/schemas/catalog-resource.schema.js';

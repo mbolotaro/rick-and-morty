@@ -2,7 +2,8 @@
 
 import { revalidatePath } from 'next/cache';
 import { getTranslations } from 'next-intl/server';
-import { actionFailure, actionSuccess, type ActionResult } from '@/lib/actions/result';
+import { actionFailure, type ActionResult } from '@/lib/actions/result';
+import { executeAction } from '@/lib/actions/execute';
 import { setFavorite } from '@/lib/favorites/mutations';
 import { favoriteResourceSchema, type FavoriteResource } from '@/lib/favorites/types';
 import { ApiError } from '@/lib/http/api-error';
@@ -23,15 +24,10 @@ export async function toggleFavoriteAction(
     return actionFailure(new ApiError(t('invalidFavorite'), 400), t('invalidFavorite'));
   }
 
-  try {
+  return executeAction(async () => {
     const liked = await setFavorite(resource.data, input.externalId, input.liked);
     revalidatePath(`/${resource.data}/${input.externalId}`);
     revalidatePath('/favorites');
-    return actionSuccess(liked);
-  } catch (error) {
-    return actionFailure(
-      error instanceof Error ? error : new Error(t('favoriteMutation')),
-      t('favoriteMutation'),
-    );
-  }
+    return liked;
+  }, t('favoriteMutation'));
 }

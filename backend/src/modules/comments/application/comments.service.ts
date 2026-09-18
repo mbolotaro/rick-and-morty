@@ -1,57 +1,23 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { translate } from '../../../common/i18n/translate.js';
-import type { CatalogResource } from '../../../common/schemas/catalog-resource.schema.js';
-import type { Prisma } from '../../../generated/prisma/client.js';
+import { Injectable } from '@nestjs/common';
 import {
-  CommentRate,
-  CommentResource,
-} from '../../../generated/prisma/enums.js';
-import { CharactersService } from '../../characters/application/characters.service.js';
-import { CatalogEpisodesService } from '../../episodes/application/catalog-episodes.service.js';
-import { LocationsService } from '../../locations/application/locations.service.js';
-import { PrismaService } from '../../prisma/prisma.service.js';
+  ApplicationError,
+  ApplicationErrorStatus,
+} from '../../../common/errors/application-error.js';
+import type { CatalogResource } from '../../rick-and-morty/application/contracts/catalog.models.js';
+import { CatalogGateway } from '../../rick-and-morty/application/ports/catalog-gateway.port.js';
 import type { CreateCommentContract } from './contracts/create-comment.contract.js';
 import type { RateCommentContract } from './contracts/rate-comment.contract.js';
-
-const commentInclude = {
-  user: {
-    select: {
-      id: true,
-      firstName: true,
-      lastName: true,
-    },
-  },
-  ratings: {
-    select: {
-      userId: true,
-      value: true,
-    },
-  },
-} satisfies Prisma.CommentInclude;
-
-type CommentWithRelations = Prisma.CommentGetPayload<{
-  include: typeof commentInclude;
-}>;
+import { CommentsRepository, type CommentRecord } from './ports/comments-repository.port.js';
 
 @Injectable()
 export class CommentsService {
   constructor(
-    private readonly prisma: PrismaService,
-    private readonly characters: CharactersService,
-    private readonly locations: LocationsService,
-    private readonly episodes: CatalogEpisodesService,
+    private readonly repository: CommentsRepository,
+    private readonly catalog: CatalogGateway,
   ) {}
 
   async list(userId: string, resource: CatalogResource, externalId: number) {
-    const comments = await this.prisma.comment.findMany({
-      where: {
-        resource: this.toDatabaseResource(resource),
-        externalId,
-      },
-      include: commentInclude,
-      orderBy: { createdAt: 'desc' },
-    });
-
+    const comments = await this.repository.list(resource, externalId);
     return comments.map((comment) => this.toResponse(comment, userId));
   }
 
@@ -61,115 +27,40 @@ export class CommentsService {
     externalId: number,
     input: CreateCommentContract,
   ) {
-    await this.assertExternalResourceExists(resource, externalId);
-
-    const comment = await this.prisma.comment.create({
-      data: {
-        userId,
-        resource: this.toDatabaseResource(resource),
-        externalId,
-        content: input.content,
-      },
-      include: commentInclude,
+    await this.catalog.getResource(resource, externalId);
+    const comment = await this.repository.create({
+      userId,
+      resource,
+      externalId,
+      content: input.content,
     });
-
     return this.toResponse(comment, userId);
   }
 
   async rate(userId: string, commentId: string, input: RateCommentContract) {
-    const comment = await this.prisma.comment.findUnique({
-      where: { id: commentId },
-      select: { id: true },
-    });
-
-    if (!comment)
-      throw new NotFoundException(
-        translate('errors.comments.notFound', 'Comentário não encontrado.'),
+    if (!(await this.repository.exists(commentId))) {
+      throw new ApplicationError(
+        ApplicationErrorStatus.NotFound,
+        'errors.comments.notFound',
+        'Comment not found.',
       );
-
-    const where = { userId_commentId: { userId, commentId } };
-    const currentRating = await this.prisma.rateComment.findUnique({ where });
-
-    if (currentRating?.value === input.value) {
-      await this.prisma.rateComment.delete({ where });
-    } else {
-      await this.prisma.rateComment.upsert({
-        where,
-        create: { userId, commentId, value: input.value },
-        update: { value: input.value },
-      });
     }
-
-    return this.ratingSummary(commentId, userId);
+    return this.repository.toggleRating(userId, commentId, input.value);
   }
 
-  private async ratingSummary(commentId: string, userId: string) {
-    const ratings = await this.prisma.rateComment.findMany({
-      where: { commentId },
-      select: { userId: true, value: true },
-    });
-
-    return {
-      up: ratings.filter(({ value }) => value === CommentRate.UP).length,
-      down: ratings.filter(({ value }) => value === CommentRate.DOWN).length,
-      current: ratings.find((rating) => rating.userId === userId)?.value ?? null,
-    };
-  }
-
-  private toResponse(comment: CommentWithRelations, userId: string) {
+  private toResponse(comment: CommentRecord, userId: string) {
     return {
       id: comment.id,
       content: comment.content,
       createdAt: comment.createdAt,
       externalId: comment.externalId,
-      resource: this.fromDatabaseResource(comment.resource),
-      author: comment.user,
+      resource: comment.resource,
+      author: comment.author,
       rating: {
-        up: comment.ratings.filter(({ value }) => value === CommentRate.UP)
-          .length,
-        down: comment.ratings.filter(({ value }) => value === CommentRate.DOWN)
-          .length,
-        current:
-          comment.ratings.find((rating) => rating.userId === userId)?.value ??
-          null,
+        up: comment.ratings.filter(({ value }) => value === 'UP').length,
+        down: comment.ratings.filter(({ value }) => value === 'DOWN').length,
+        current: comment.ratings.find((rating) => rating.userId === userId)?.value ?? null,
       },
     };
-  }
-
-  private toDatabaseResource(resource: CatalogResource): CommentResource {
-    const resources: Record<CatalogResource, CommentResource> = {
-      characters: CommentResource.CHARACTERS,
-      locations: CommentResource.LOCATIONS,
-      episodes: CommentResource.EPISODES,
-    };
-
-    return resources[resource];
-  }
-
-  private fromDatabaseResource(resource: CommentResource): CatalogResource {
-    const resources: Record<CommentResource, CatalogResource> = {
-      [CommentResource.CHARACTERS]: 'characters',
-      [CommentResource.LOCATIONS]: 'locations',
-      [CommentResource.EPISODES]: 'episodes',
-    };
-
-    return resources[resource];
-  }
-
-  private async assertExternalResourceExists(
-    resource: CatalogResource,
-    externalId: number,
-  ): Promise<void> {
-    switch (resource) {
-      case 'characters':
-        await this.characters.getById(externalId);
-        break;
-      case 'locations':
-        await this.locations.getById(externalId);
-        break;
-      case 'episodes':
-        await this.episodes.getById(externalId);
-        break;
-    }
   }
 }

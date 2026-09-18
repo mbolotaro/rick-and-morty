@@ -8,40 +8,43 @@ Aplicativo Flutter do PickleVerso com autenticação mobile, refresh token rotat
 - Catálogo paginado de personagens, episódios e localidades.
 - Filtros tipados compatíveis com os valores aceitos pelo backend.
 - Detalhes de personagens com episódios e localidades relacionados.
-- Favoritos, comentários com limite de 1000 caracteres e avaliações positivas/negativas.
+- Favoritos, comentários com limite de 1000 caracteres e avaliações positivas ou negativas.
 - Tratamento centralizado de erros HTTP e renovação automática da sessão.
 
-## Configuração
+## Configuração do build
 
-Instale as dependências:
+Instale as dependências e crie a configuração local:
 
 ```bash
 flutter pub get
+cp .env.example .env
 ```
 
-Crie a configuração local a partir do exemplo:
+No PowerShell:
 
 ```powershell
 Copy-Item .env.example .env
 ```
 
-O Flutter lê esse arquivo em tempo de compilação. Para um Android físico conectado por USB, use:
+Defina uma URL da API acessível pelo aparelho:
 
 ```dotenv
-API_BASE_URL=http://127.0.0.1:3040
+API_BASE_URL=https://api.seu-dominio.com
 ```
 
-## Gerar e instalar o APK release
+Para testes em uma rede local, também pode ser utilizado o IP do computador:
 
-Com o backend em execução na porta `3040`, configure o redirecionamento USB:
-
-```powershell
-& "$env:LOCALAPPDATA\Android\Sdk\platform-tools\adb.exe" reverse tcp:3040 tcp:3040
+```dotenv
+API_BASE_URL=http://192.168.0.10:3040
 ```
 
-Gere o APK compilado em modo release:
+O backend deve aceitar conexões externas e a porta utilizada precisa estar liberada na rede.
 
-```powershell
+## Android release
+
+Gere o APK instalável:
+
+```bash
 flutter build apk --release --dart-define-from-file=.env
 ```
 
@@ -51,39 +54,25 @@ O artefato será gerado em:
 build/app/outputs/flutter-apk/app-release.apk
 ```
 
-Instale-o no aparelho:
+Para publicação na Play Store, gere o Android App Bundle:
 
-```powershell
-& "$env:LOCALAPPDATA\Android\Sdk\platform-tools\adb.exe" install -r build\app\outputs\flutter-apk\app-release.apk
+```bash
+flutter build appbundle --release --dart-define-from-file=.env
 ```
 
-Depois disso, abra o PickleVerso pelo ícone do aplicativo. Não é necessário manter `flutter run` aberto. O cabo continua necessário apenas porque o backend local está sendo acessado por `127.0.0.1` através do `adb reverse`.
+O artefato será gerado em:
 
-## Executar sem cabo
-
-Utilize no `.env` um backend publicado em HTTPS:
-
-```dotenv
-API_BASE_URL=https://api.seu-dominio.com
+```text
+build/app/outputs/bundle/release/app-release.aab
 ```
 
-Também é possível usar o IP local do computador quando ambos estiverem na mesma rede Wi-Fi:
+## iOS release
 
-```dotenv
-API_BASE_URL=http://192.168.0.10:3040
+Em um ambiente macOS com Xcode configurado, gere o arquivo de distribuição:
+
+```bash
+flutter build ipa --release --dart-define-from-file=.env
 ```
-
-O backend deve aceitar conexões externas e a porta `3040` precisa estar liberada no firewall.
-
-## Desenvolvimento
-
-Para usar hot reload durante o desenvolvimento:
-
-```powershell
-flutter run --dart-define-from-file=.env
-```
-
-Para o Android Emulator, use `API_BASE_URL=http://10.0.2.2:3040`. No iOS Simulator, use `API_BASE_URL=http://127.0.0.1:3040`.
 
 ## Qualidade
 
@@ -97,9 +86,9 @@ flutter build apk --release --dart-define-from-file=.env
 
 - `lib/app`: inicialização e rotas protegidas.
 - `lib/core`: configuração, rede, armazenamento seguro, tema e componentes compartilhados.
-- `lib/features`: features isoladas em `data`, `domain` e `presentation`.
-- `test`: testes unitários das fronteiras de dados e segurança da sessão.
+- `lib/features`: funcionalidades isoladas em `data`, `domain` e `presentation`.
+- `test`: testes unitários das fronteiras de dados e da segurança da sessão.
 
 O access token permanece apenas em memória. O refresh token é salvo pelo `flutter_secure_storage`, que utiliza o armazenamento seguro disponibilizado por cada sistema operacional.
 
-O arquivo `.env` não deve conter segredos. Antes de publicar o aplicativo, substitua a assinatura de debug configurada no build release por uma chave de assinatura própria.
+O arquivo `.env` é incorporado ao aplicativo durante a compilação e não deve conter segredos. Antes de publicar, configure uma assinatura própria para cada plataforma.

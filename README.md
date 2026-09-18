@@ -1,162 +1,147 @@
 # PickleVerso
 
-Aplicação web inspirada em Rick and Morty, com catálogo de personagens, episódios e localidades, autenticação com rotação de refresh tokens, favoritos, comentários e avaliações.
+Aplicação inspirada em Rick and Morty, com catálogo de personagens, episódios e localidades, autenticação com rotação de refresh tokens, favoritos, comentários e avaliações.
 
 ## Estrutura
 
 - `backend`: API NestJS, Prisma, PostgreSQL, Zod e Swagger.
 - `frontend`: aplicação Next.js com renderização no servidor, React Query e next-intl.
-- `mobile`: aplicativo Flutter para Android, iOS e demais plataformas suportadas.
+- `mobile`: aplicativo Flutter para Android e iOS.
 
 ## Pré-requisitos
 
 - Node.js 20.9 ou superior.
 - npm.
 - Docker Desktop, para executar o PostgreSQL localmente.
-- Flutter e Android SDK, para compilar e instalar o aplicativo mobile.
+- Flutter e o SDK da plataforma desejada, para compilar o aplicativo mobile.
 
-## 1. Backend e banco de dados
+## Executar o projeto compilado
 
-Entre na pasta do backend:
+Os comandos abaixo executam backend e frontend a partir dos respectivos builds de produção. Abra um terminal separado para o banco, para a API e para o frontend.
+
+### 1. Banco de dados e backend
+
+Entre na pasta do backend e crie o arquivo de ambiente:
 
 ```bash
 cd backend
-```
-
-Crie o arquivo de ambiente a partir do exemplo:
-
-```bash
 cp .env.example .env
 ```
 
-No PowerShell, use:
+No PowerShell:
 
 ```powershell
+cd backend
 Copy-Item .env.example .env
 ```
 
-Revise principalmente `JWT_SECRET`, `DB_*` e `CORS_ORIGIN`. Depois instale as dependências:
+Revise principalmente `JWT_SECRET`, `DB_*` e `CORS_ORIGIN`. Depois, instale as dependências, suba o PostgreSQL e prepare o banco:
 
 ```bash
-npm install --legacy-peer-deps
-```
-
-Inicie o PostgreSQL:
-
-```bash
+npm ci --legacy-peer-deps
 docker compose up -d
-```
-
-Gere o Prisma Client e aplique as migrações existentes:
-
-```bash
 npm run prisma:generate
 npx prisma migrate deploy
 ```
 
-Inicie a API em modo de desenvolvimento:
+Compile e execute a API em modo de produção:
 
 ```bash
-npm run start:dev
+npm run build
+npm run start:prod
 ```
 
-A API estará em `http://localhost:3040`.
-
-### Swagger
+A API estará disponível em `http://localhost:3040`.
 
 Com o backend em execução:
 
-- Interface Swagger: `http://localhost:3040/docs`
-- Documento OpenAPI JSON: `http://localhost:3040/docs-json`
+- Swagger: `http://localhost:3040/docs`
+- OpenAPI JSON: `http://localhost:3040/docs-json`
 
-## 2. Frontend
+### 2. Frontend
 
-Em outro terminal, partindo da raiz do projeto:
+Em outro terminal, partindo da raiz do projeto, crie o arquivo de ambiente:
 
 ```bash
 cd frontend
-```
-
-Crie o arquivo de ambiente:
-
-```bash
 cp .env.example .env.local
 ```
 
 No PowerShell:
 
 ```powershell
+cd frontend
 Copy-Item .env.example .env.local
 ```
 
-Instale as dependências e inicie o Next.js:
+Confirme que `BACKEND_URL` aponta para a API e, então, instale, compile e execute o frontend:
 
 ```bash
-npm install
-npm run dev
+npm ci
+npm run build
+npm run start
 ```
 
-Abra `http://localhost:3000`. O valor de `BACKEND_URL` deve apontar para `http://localhost:3040`.
+Abra `http://localhost:3000`.
 
-## 3. Mobile Android em modo release
+### 3. Mobile
 
-O modo release gera um APK compilado que pode ser aberto normalmente pelo ícone do aplicativo, sem manter `flutter run` em execução.
+Entre na pasta do aplicativo, instale as dependências e crie sua configuração de build:
 
-Entre na pasta do mobile, instale as dependências e crie o arquivo local de ambiente:
-
-```powershell
+```bash
 cd mobile
 flutter pub get
+cp .env.example .env
+```
+
+No PowerShell, substitua o último comando por:
+
+```powershell
 Copy-Item .env.example .env
 ```
 
-### Backend local acessado por USB
-
-Para um Android físico conectado por USB, utilize no arquivo `mobile/.env`:
-
-```dotenv
-API_BASE_URL=http://127.0.0.1:3040
-```
-
-Com o backend executando na porta `3040`, redirecione a porta do aparelho:
-
-```powershell
-& "$env:LOCALAPPDATA\Android\Sdk\platform-tools\adb.exe" reverse tcp:3040 tcp:3040
-```
-
-Gere o APK release:
-
-```powershell
-flutter build apk --release --dart-define-from-file=.env
-```
-
-Instale o APK no aparelho:
-
-```powershell
-& "$env:LOCALAPPDATA\Android\Sdk\platform-tools\adb.exe" install -r build\app\outputs\flutter-apk\app-release.apk
-```
-
-Depois da instalação, o PickleVerso pode ser aberto diretamente pelo ícone. Enquanto `API_BASE_URL` estiver apontando para `127.0.0.1`, o cabo e o redirecionamento com `adb reverse` continuam necessários para acessar o backend do computador. O redirecionamento deve ser refeito quando o aparelho ou o serviço ADB for reiniciado.
-
-### Executar sem depender do cabo
-
-Para usar o aplicativo sem USB, o backend precisa estar publicado em HTTPS ou disponível na mesma rede do aparelho. Nesse caso, altere o `.env` antes de gerar o APK:
+Configure no `mobile/.env` uma URL da API que possa ser acessada pelo aparelho:
 
 ```dotenv
 API_BASE_URL=https://api.seu-dominio.com
 ```
 
-Para desenvolvimento na mesma rede Wi-Fi também é possível usar o IP local do computador, por exemplo `http://192.168.0.10:3040`, desde que a porta esteja liberada no firewall e o backend aceite conexões externas.
+Em uma rede local, também pode ser utilizado o endereço IP do computador, desde que o backend e a porta estejam acessíveis:
 
-> O `.env` mobile é uma configuração de build, não um cofre de segredos. Nunca armazene senhas, tokens ou chaves privadas nele. Atualmente o build release local usa a chave de debug; antes de publicar na Play Store, configure uma chave de assinatura própria.
+```dotenv
+API_BASE_URL=http://192.168.0.10:3040
+```
 
-## Validação antes de enviar alterações
+Gere o APK Android em modo release:
+
+```bash
+flutter build apk --release --dart-define-from-file=.env
+```
+
+O arquivo será criado em `mobile/build/app/outputs/flutter-apk/app-release.apk` e poderá ser instalado em um aparelho Android.
+
+Para publicação na Play Store, gere um Android App Bundle:
+
+```bash
+flutter build appbundle --release --dart-define-from-file=.env
+```
+
+Para iOS, em um ambiente macOS com Xcode configurado:
+
+```bash
+flutter build ipa --release --dart-define-from-file=.env
+```
+
+> O `.env` mobile é incorporado ao build e não deve conter senhas, tokens ou chaves privadas. Antes de publicar o aplicativo, configure as assinaturas de produção do Android e do iOS.
+
+## Verificações de qualidade
 
 Backend:
 
 ```bash
 cd backend
 npm run lint
+npm run test:all
 npm run build
 ```
 

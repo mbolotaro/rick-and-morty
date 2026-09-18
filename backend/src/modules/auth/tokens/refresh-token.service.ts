@@ -4,6 +4,7 @@ import { PrismaService } from '../../prisma/prisma.service.js';
 import type { SessionInfoPayload } from '../types/session-info.type.js';
 import { TokenService } from './token.service.js';
 import { EnvService } from '../../env/env.service.js';
+import { translate } from '../../../common/i18n/translate.js';
 
 @Injectable()
 export class RefreshTokenService {
@@ -54,10 +55,20 @@ export class RefreshTokenService {
       record.expiresAt <= new Date() ||
       !(await bcrypt.compare(rawToken, record.tokenHash))
     )
-      throw new UnauthorizedException('Refresh token inválido.');
+      throw new UnauthorizedException(
+        translate(
+          'errors.auth.invalidRefreshToken',
+          'Refresh token inválido.',
+        ),
+      );
     if (record.revokedAt) {
       await this.revokeAllForUser(record.userId);
-      throw new UnauthorizedException('Refresh token reutilizado.');
+      throw new UnauthorizedException(
+        translate(
+          'errors.auth.reusedRefreshToken',
+          'Refresh token reutilizado.',
+        ),
+      );
     }
     const issued = await this.issue(record.userId, session);
     await this.prisma.refreshToken.update({

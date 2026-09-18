@@ -1,6 +1,6 @@
 generator client {
-  provider = "prisma-client"
-  output = "../src/generated/prisma"
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
   moduleFormat = "cjs"
 }
 
@@ -9,57 +9,127 @@ datasource db {
 }
 
 model User {
-  id                String         @id @default(cuid())
-  firstName         String
-  lastName          String
-  email             String         @unique
-  passwordHash      String
-  isEmailVerified   Boolean        @default(false)
-  createdAt         DateTime       @default(now())
-  updatedAt         DateTime       @updatedAt
-  refreshTokens     RefreshToken[]
+  id                      String                   @id @default(cuid())
+  firstName               String
+  lastName                String
+  email                   String                   @unique
+  passwordHash            String
+  isEmailVerified         Boolean                  @default(false)
+  createdAt               DateTime                 @default(now())
+  updatedAt               DateTime                 @updatedAt
+  refreshTokens           RefreshToken[]
   emailVerificationTokens EmailVerificationToken[]
-  passwordResetTokens PasswordResetToken[]
+  passwordResetTokens     PasswordResetToken[]
+  likedCharacters         LikedCharacter[]
+  likedLocations          LikedLocation[]
+  likedEpisodes           LikedEpisode[]
+  comments                Comment[]
+  commentRatings          RateComment[]
+}
+
+enum CommentResource {
+  CHARACTERS @map("characters")
+  LOCATIONS  @map("locations")
+  EPISODES   @map("episodes")
+}
+
+enum CommentRate {
+  UP
+  DOWN
+}
+
+model Comment {
+  id         String          @id @default(cuid())
+  content    String          @db.VarChar(1000)
+  createdAt  DateTime        @default(now())
+  userId     String
+  resource   CommentResource
+  externalId Int
+  user       User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ratings    RateComment[]
+
+  @@index([resource, externalId, createdAt])
+  @@index([userId, createdAt])
+  @@map("comments")
+}
+
+model RateComment {
+  userId    String
+  commentId String
+  value     CommentRate
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comment   Comment     @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  @@id([userId, commentId])
+  @@index([commentId, value])
+  @@map("rate_comments")
+}
+
+model LikedCharacter {
+  userId     String
+  externalId Int
+  user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, externalId])
+  @@map("liked_characters")
+}
+
+model LikedLocation {
+  userId     String
+  externalId Int
+  user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, externalId])
+  @@map("liked_locations")
+}
+
+model LikedEpisode {
+  userId     String
+  externalId Int
+  user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, externalId])
+  @@map("liked_episodes")
 }
 
 model EmailVerificationToken {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   userId    String
   email     String
-  tokenHash String   @unique
+  tokenHash String    @unique
   expiresAt DateTime
   usedAt    DateTime?
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, usedAt])
 }
 
 model PasswordResetToken {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   userId    String
   email     String
-  tokenHash String   @unique
+  tokenHash String    @unique
   expiresAt DateTime
   usedAt    DateTime?
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, usedAt])
 }
 
 model RefreshToken {
-  id         String   @id @default(cuid())
-  jti        String   @unique
+  id         String    @id @default(cuid())
+  jti        String    @unique
   tokenHash  String
   userId     String
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userAgent  String?
   ipAddress  String?
   expiresAt  DateTime
   revokedAt  DateTime?
   replacedBy String?
-  createdAt  DateTime @default(now())
+  createdAt  DateTime  @default(now())
 
   @@index([userId, revokedAt])
 }

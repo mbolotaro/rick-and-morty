@@ -1,0 +1,57 @@
+{
+  "http": {
+    "badRequest": "Invalid request.",
+    "unauthorized": "Authentication required.",
+    "forbidden": "You do not have permission to perform this action.",
+    "notFound": "Resource not found.",
+    "conflict": "The operation conflicts with the current resource state.",
+    "internalServerError": "An internal server error occurred.",
+    "badGateway": "The external service request could not be completed."
+  },
+  "httpTitle": {
+    "badRequest": "Bad Request",
+    "unauthorized": "Unauthorized",
+    "forbidden": "Forbidden",
+    "notFound": "Not Found",
+    "conflict": "Conflict",
+    "internalServerError": "Internal Server Error",
+    "badGateway": "Bad Gateway"
+  },
+  "validation": {
+    "invalidInput": "Invalid input data.",
+    "invalidField": "Invalid value.",
+    "invalid_type": "The provided value has an invalid type.",
+    "invalid_format": "The provided value has an invalid format.",
+    "invalid_value": "The provided value is not allowed.",
+    "too_small": "The provided value is smaller than allowed.",
+    "too_big": "The provided value is larger than allowed.",
+    "not_multiple_of": "The provided value is not an allowed multiple.",
+    "unrecognized_keys": "There are unrecognized fields.",
+    "invalid_union": "The provided value does not match the allowed formats.",
+    "invalid_key": "The provided key is invalid.",
+    "invalid_element": "One of the provided values is invalid.",
+    "custom": "Invalid value.",
+    "passwordComplexity": "The password must contain an uppercase letter, a lowercase letter, and a number."
+  },
+  "auth": {
+    "notAuthenticated": "Authentication required.",
+    "invalidSession": "The session is invalid or has expired.",
+    "emailAlreadyExists": "This email address is already registered.",
+    "invalidCredentials": "Invalid email or password.",
+    "invalidRefreshToken": "Invalid refresh token.",
+    "reusedRefreshToken": "The refresh token has already been used.",
+    "compromisedSession": "The session has been compromised.",
+    "userNotFound": "User not found.",
+    "sessionNotFound": "Session not found.",
+    "invalidToken": "Invalid token."
+  },
+  "comments": {
+    "notFound": "Comment not found."
+  },
+  "catalog": {
+    "unavailable": "The Rick and Morty API is unavailable.",
+    "notFound": "Resource not found.",
+    "requestFailed": "The Rick and Morty API request failed.",
+    "invalidResponse": "The Rick and Morty API returned invalid data."
+  }
+}

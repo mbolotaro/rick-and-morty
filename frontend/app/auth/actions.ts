@@ -1,36 +1,65 @@
 'use server';
 
-import { redirect } from 'next/navigation';
-import { signIn, signOut, signUp } from '@/lib/auth/server';
+import { getTranslations } from 'next-intl/server';
+import { actionFailure, actionSuccess, type ActionResult } from '@/lib/actions/result';
+import { signIn, signOut, signUp } from '@/lib/auth/mutations';
+import {
+  signInInputSchema,
+  signUpInputSchema,
+  type AuthUser,
+  type SignInInput,
+  type SignUpInput,
+} from '@/lib/auth/types';
+import { ApiError } from '@/lib/http/api-error';
 
-function field(form: FormData, name: string): string {
-  return String(form.get(name) ?? '').trim();
-}
+export async function signInAction(
+  input: SignInInput,
+): Promise<ActionResult<AuthUser>> {
+  const t = await getTranslations('Errors');
+  const parsed = signInInputSchema.safeParse(input);
 
-export async function signInAction(form: FormData): Promise<void> {
+  if (!parsed.success)
+    return actionFailure(new ApiError(t('signIn'), 400), t('signIn'));
+
   try {
-    await signIn({ email: field(form, 'email'), password: field(form, 'password') });
-  } catch {
-    redirect('/login?error=credentials');
+    return actionSuccess((await signIn(parsed.data)).user);
+  } catch (error) {
+    return actionFailure(
+      error instanceof Error ? error : new Error(t('signIn')),
+      t('signIn'),
+    );
   }
-  redirect('/dashboard');
 }
 
-export async function signUpAction(form: FormData): Promise<void> {
+export async function signUpAction(
+  input: SignUpInput,
+): Promise<ActionResult<AuthUser>> {
+  const t = await getTranslations('Errors');
+  const parsed = signUpInputSchema.safeParse(input);
+
+  if (!parsed.success)
+    return actionFailure(new ApiError(t('signUp'), 400), t('signUp'));
+
   try {
-    await signUp({
-      firstName: field(form, 'firstName'),
-      lastName: field(form, 'lastName'),
-      email: field(form, 'email'),
-      password: field(form, 'password'),
-    });
-  } catch {
-    redirect('/register?error=signup');
+    return actionSuccess((await signUp(parsed.data)).user);
+  } catch (error) {
+    return actionFailure(
+      error instanceof Error ? error : new Error(t('signUp')),
+      t('signUp'),
+    );
   }
-  redirect('/dashboard');
 }
 
-export async function signOutAction(): Promise<void> {
-  await signOut();
-  redirect('/login');
+export async function signOutAction(): Promise<ActionResult<null>> {
+  const t = await getTranslations('Errors');
+
+  try {
+    await signOut();
+    return actionSuccess(null);
+  } catch (error) {
+    return actionFailure(
+      error instanceof Error ? error : new Error(t('signOut')),
+      t('signOut'),
+    );
+  }
 }

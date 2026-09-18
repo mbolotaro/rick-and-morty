@@ -1,6 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { randomUUID } from 'crypto';
+import { translate } from '../../common/i18n/translate.js';
 import { EnvService } from '../env/env.service.js';
 
 export type AccessPayload = {
@@ -45,16 +46,22 @@ export class TokenService {
 
   async verifyAccess(token: string): Promise<AccessPayload> {
     const payload = await this.jwt.verifyAsync<AccessPayload>(token);
-    if (payload.type !== 'access') throw new UnauthorizedException();
+    if (payload.type !== 'access')
+      throw new UnauthorizedException(
+        translate('errors.auth.invalidToken', 'Token inválido.'),
+      );
     return payload;
   }
 
   async verifyRefresh(token: string): Promise<RefreshPayload> {
     const payload = await this.jwt.verifyAsync<RefreshPayload>(token);
-    if (payload.type !== 'refresh') throw new UnauthorizedException();
+    if (payload.type !== 'refresh')
+      throw new UnauthorizedException(
+        translate('errors.auth.invalidToken', 'Token inválido.'),
+      );
     return payload;
   }
-  
+
   refreshExpirationDate() {
     const value = this.refreshExpires;
     const match = /^(\d+)([smhd])$/.exec(value);

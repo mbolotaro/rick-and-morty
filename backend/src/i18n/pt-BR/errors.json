@@ -1,0 +1,57 @@
+{
+  "http": {
+    "badRequest": "Requisição inválida.",
+    "unauthorized": "Não autenticado.",
+    "forbidden": "Você não tem permissão para realizar esta ação.",
+    "notFound": "Recurso não encontrado.",
+    "conflict": "A operação entrou em conflito com o estado atual do recurso.",
+    "internalServerError": "Ocorreu um erro interno no servidor.",
+    "badGateway": "Não foi possível concluir a comunicação com o serviço externo."
+  },
+  "httpTitle": {
+    "badRequest": "Requisição inválida",
+    "unauthorized": "Não autorizado",
+    "forbidden": "Acesso proibido",
+    "notFound": "Não encontrado",
+    "conflict": "Conflito",
+    "internalServerError": "Erro interno do servidor",
+    "badGateway": "Falha no serviço externo"
+  },
+  "validation": {
+    "invalidInput": "Dados de entrada inválidos.",
+    "invalidField": "Valor inválido.",
+    "invalid_type": "O valor informado possui um tipo inválido.",
+    "invalid_format": "O valor informado possui um formato inválido.",
+    "invalid_value": "O valor informado não é permitido.",
+    "too_small": "O valor informado é menor que o permitido.",
+    "too_big": "O valor informado é maior que o permitido.",
+    "not_multiple_of": "O valor informado não é um múltiplo permitido.",
+    "unrecognized_keys": "Existem campos não reconhecidos.",
+    "invalid_union": "O valor informado não corresponde aos formatos permitidos.",
+    "invalid_key": "A chave informada é inválida.",
+    "invalid_element": "Um dos valores informados é inválido.",
+    "custom": "Valor inválido.",
+    "passwordComplexity": "A senha deve conter letra maiúscula, letra minúscula e número."
+  },
+  "auth": {
+    "notAuthenticated": "Não autenticado.",
+    "invalidSession": "Sessão inválida ou expirada.",
+    "emailAlreadyExists": "E-mail já cadastrado.",
+    "invalidCredentials": "E-mail ou senha inválidos.",
+    "invalidRefreshToken": "Refresh token inválido.",
+    "reusedRefreshToken": "Refresh token reutilizado.",
+    "compromisedSession": "Sessão comprometida.",
+    "userNotFound": "Usuário não encontrado.",
+    "sessionNotFound": "Sessão não encontrada.",
+    "invalidToken": "Token inválido."
+  },
+  "comments": {
+    "notFound": "Comentário não encontrado."
+  },
+  "catalog": {
+    "unavailable": "A API Rick and Morty não está disponível.",
+    "notFound": "Recurso não encontrado.",
+    "requestFailed": "Falha ao consultar a API Rick and Morty.",
+    "invalidResponse": "A API Rick and Morty retornou dados inválidos."
+  }
+}

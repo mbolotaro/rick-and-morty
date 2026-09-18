@@ -52,6 +52,11 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
+  Comment: 'Comment',
+  RateComment: 'RateComment',
+  LikedCharacter: 'LikedCharacter',
+  LikedLocation: 'LikedLocation',
+  LikedEpisode: 'LikedEpisode',
   EmailVerificationToken: 'EmailVerificationToken',
   PasswordResetToken: 'PasswordResetToken',
   RefreshToken: 'RefreshToken'
@@ -85,6 +90,51 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const CommentScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  createdAt: 'createdAt',
+  userId: 'userId',
+  resource: 'resource',
+  externalId: 'externalId'
+} as const
+
+export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
+
+
+export const RateCommentScalarFieldEnum = {
+  userId: 'userId',
+  commentId: 'commentId',
+  value: 'value'
+} as const
+
+export type RateCommentScalarFieldEnum = (typeof RateCommentScalarFieldEnum)[keyof typeof RateCommentScalarFieldEnum]
+
+
+export const LikedCharacterScalarFieldEnum = {
+  userId: 'userId',
+  externalId: 'externalId'
+} as const
+
+export type LikedCharacterScalarFieldEnum = (typeof LikedCharacterScalarFieldEnum)[keyof typeof LikedCharacterScalarFieldEnum]
+
+
+export const LikedLocationScalarFieldEnum = {
+  userId: 'userId',
+  externalId: 'externalId'
+} as const
+
+export type LikedLocationScalarFieldEnum = (typeof LikedLocationScalarFieldEnum)[keyof typeof LikedLocationScalarFieldEnum]
+
+
+export const LikedEpisodeScalarFieldEnum = {
+  userId: 'userId',
+  externalId: 'externalId'
+} as const
+
+export type LikedEpisodeScalarFieldEnum = (typeof LikedEpisodeScalarFieldEnum)[keyof typeof LikedEpisodeScalarFieldEnum]
 
 
 export const EmailVerificationTokenScalarFieldEnum = {

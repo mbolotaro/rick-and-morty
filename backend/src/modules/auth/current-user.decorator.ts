@@ -4,6 +4,6 @@ export interface CurrentUserPayload {
   scope: 'full' | 'unverified';
 }
 export const CurrentUser = createParamDecorator(
-  (_: unknown, context: ExecutionContext): CurrentUserPayload =>
+  (_: object, context: ExecutionContext): CurrentUserPayload =>
     context.switchToHttp().getRequest().user,
 );

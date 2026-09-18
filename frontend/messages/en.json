@@ -1,0 +1,61 @@
+{
+  "Metadata": {"title": "PickleVerso", "description": "Explore Rick and Morty characters, episodes, and locations."},
+  "Common": {"loading": "Loading...", "retry": "Try again", "notInformed": "Not provided", "visitor": "Guest"},
+  "Auth": {
+    "loginTitle": "Sign in", "registerTitle": "Create account", "firstName": "First name", "lastName": "Last name", "email": "Email", "password": "Password",
+    "signIn": "Sign in", "signingIn": "Signing in...", "signUp": "Create account", "signingUp": "Creating account...", "createAccount": "Create account",
+    "alreadyHaveAccount": "Sign in now", "signInSuccess": "Signed in successfully.", "signUpSuccess": "Account created successfully.", "signOutSuccess": "You have signed out.",
+    "portalAccess": "Interdimensional access", "welcomeTitle": "Your portal to every reality.", "welcomeDescription": "Explore characters, episodes, and locations in an experience made for Rick and Morty fans.",
+    "loginEyebrow": "Welcome back", "registerEyebrow": "New identity", "loginDescription": "Sign in to continue your journey through PickleVerso.", "registerDescription": "Create your account to save favorites and join the discussions.",
+    "hasAccountPrompt": "Already have an account?", "noAccountPrompt": "Do not have an account yet?"
+  },
+  "Sidebar": {
+    "navigation": "Main navigation", "home": "Home", "episodes": "Episodes", "characters": "Characters", "locations": "Locations", "favorites": "Favorites",
+    "expand": "Expand menu", "collapse": "Collapse menu", "tagline": "Explore other realities", "portalLineOne": "Infinite worlds.", "portalLineTwo": "One curiosity."
+  },
+  "Topbar": {"connectedAs": "Signed in as", "signOut": "Sign out", "loadingUser": "Loading user"},
+  "Dashboard": {
+    "eyebrow": "Interdimensional archive", "title": "Explore PickleVerso", "description": "Characters, episodes, and locations gathered in one place.", "summary": "Catalog summary",
+    "episodes": "Episodes", "episodesDescription": "Follow every adventure", "characters": "Characters", "charactersDescription": "Meet every universe",
+    "locations": "Locations", "locationsDescription": "Travel across dimensions", "initialSelection": "Initial selection", "episodesToExplore": "Episodes to explore",
+    "viewCatalog": "View catalog", "featuredCharacter": "Featured character", "viewProfile": "View profile", "knownRoutes": "Known routes",
+    "destinations": "Destinations across dimensions", "viewAll": "View all", "unknownPlace": "Unknown location"
+  },
+  "Catalog": {
+    "eyebrow": "Catalog", "characters": "Characters", "locations": "Locations", "episodes": "Episodes", "character": "Character", "location": "Location", "episode": "Episode",
+    "results": "{count, plural, =0 {No results found} one {# result found} other {# results found}}", "contentTypes": "Content types",
+    "filter": "Filter", "filterBy": "Filter by {field}", "allOptions": "All",
+    "filters": {"name": "Name", "status": "Status", "species": "Species", "gender": "Gender", "type": "Type", "dimension": "Dimension", "episode": "Episode code"},
+    "filterOptions": {"alive": "Alive", "dead": "Dead", "unknown": "Unknown", "human": "Human", "alien": "Alien", "humanoid": "Humanoid", "poopybutthole": "Poopybutthole", "mythologicalCreature": "Mythological creature", "animal": "Animal", "robot": "Robot", "cronenberg": "Cronenberg", "disease": "Disease", "female": "Female", "male": "Male", "genderless": "Genderless"},
+    "previous": "Previous", "next": "Next", "back": "Back to catalog", "record": "Record #{id}",
+    "details": {"status": "Status", "species": "Species", "type": "Type", "gender": "Gender", "origin": "Origin", "currentLocation": "Current location", "dimension": "Dimension", "residents": "Residents", "code": "Code", "airedAt": "Aired on", "characters": "Characters"}
+  },
+  "CharacterProfile": {
+    "episodesTitle": "Episodes featuring this character",
+    "episodesCount": "{count, plural, =0 {No episodes} one {# episode} other {# episodes}}",
+    "episodesEmpty": "No related episodes were found.",
+    "locationsTitle": "Related locations",
+    "locationsCount": "{count, plural, =0 {No locations} one {# location} other {# locations}}",
+    "locationsEmpty": "There is no known location for this character."
+  },
+  "Favorites": {
+    "myCollection": "My collection", "title": "Favorites", "description": "Characters, locations, and episodes saved by you.", "yourCollection": "Your collection",
+    "emptyTitle": "No favorites yet", "emptyDescription": "You have not added anything to your collection yet. Keep exploring the multiverse to find your favorites.",
+    "exploreCharacters": "Explore characters", "add": "Favorite", "remove": "Favorited", "addLabel": "Add to favorites", "removeLabel": "Remove from favorites",
+    "added": "Added to favorites.", "removed": "Removed from favorites."
+  },
+  "Comments": {
+    "discussion": "Discussion", "title": "Comments", "add": "Add comment", "placeholder": "Share your thoughts...", "submit": "Comment", "submitting": "Posting...",
+    "empty": "Be the first person to comment.", "upvote": "Upvote", "downvote": "Downvote", "published": "Comment published.", "rated": "Rating updated."
+  },
+  "Errors": {
+    "network": "Could not connect to the server.", "request": "The request could not be completed.", "invalidResponse": "The server returned an invalid response.",
+    "authentication": "Your session has expired. Please sign in again.", "signIn": "Could not sign in.", "signUp": "Could not create your account.", "signOut": "Could not sign out.",
+    "catalog": "Could not load the catalog.", "resource": "Could not load the resource.", "favorites": "Could not load favorites.",
+    "favoriteStatus": "Could not check the favorite.", "favoriteMutation": "Could not update the favorite.", "comments": "Could not load comments.",
+    "commentMutation": "Could not publish the comment.", "ratingMutation": "Could not rate the comment.", "invalidFavorite": "Invalid favorite identifier.",
+    "invalidComment": "The comment must contain between 1 and 1000 characters.", "invalidRating": "Invalid rating data.", "pageTitle": "Something slipped through the portal",
+    "pageDescription": "This reality could not be loaded. Please try again shortly.", "notFoundTitle": "Reality not found",
+    "notFoundDescription": "The page you were looking for does not exist in this universe.", "backHome": "Back to home"
+  }
+}

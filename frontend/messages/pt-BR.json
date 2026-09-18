@@ -1,0 +1,61 @@
+{
+  "Metadata": {"title": "PickleVerso", "description": "Explore personagens, episódios e localidades de Rick and Morty."},
+  "Common": {"loading": "Carregando...", "retry": "Tentar novamente", "notInformed": "Não informado", "visitor": "Visitante"},
+  "Auth": {
+    "loginTitle": "Entrar", "registerTitle": "Criar conta", "firstName": "Nome", "lastName": "Sobrenome", "email": "E-mail", "password": "Senha",
+    "signIn": "Entrar", "signingIn": "Entrando...", "signUp": "Cadastrar", "signingUp": "Criando conta...", "createAccount": "Criar conta",
+    "alreadyHaveAccount": "Entrar agora", "signInSuccess": "Login realizado com sucesso.", "signUpSuccess": "Conta criada com sucesso.", "signOutSuccess": "Você saiu da sua conta.",
+    "portalAccess": "Acesso interdimensional", "welcomeTitle": "Seu portal para todas as realidades.", "welcomeDescription": "Explore personagens, episódios e localidades em uma experiência feita para fãs de Rick and Morty.",
+    "loginEyebrow": "Bem-vindo de volta", "registerEyebrow": "Nova identidade", "loginDescription": "Entre para continuar sua jornada pelo PickleVerso.", "registerDescription": "Crie sua conta para salvar favoritos e participar das discussões.",
+    "hasAccountPrompt": "Já possui uma conta?", "noAccountPrompt": "Ainda não possui uma conta?"
+  },
+  "Sidebar": {
+    "navigation": "Navegação principal", "home": "Início", "episodes": "Episódios", "characters": "Personagens", "locations": "Localidades", "favorites": "Favoritos",
+    "expand": "Expandir menu", "collapse": "Recolher menu", "tagline": "Explore outras realidades", "portalLineOne": "Infinitos mundos.", "portalLineTwo": "Uma só curiosidade."
+  },
+  "Topbar": {"connectedAs": "Conectado como", "signOut": "Sair", "loadingUser": "Carregando usuário"},
+  "Dashboard": {
+    "eyebrow": "Arquivo interdimensional", "title": "Explore o PickleVerso", "description": "Personagens, episódios e localidades reunidos em um só lugar.", "summary": "Resumo do catálogo",
+    "episodes": "Episódios", "episodesDescription": "Acompanhe cada aventura", "characters": "Personagens", "charactersDescription": "Conheça todos os universos",
+    "locations": "Localidades", "locationsDescription": "Viaje entre dimensões", "initialSelection": "Seleção inicial", "episodesToExplore": "Episódios para explorar",
+    "viewCatalog": "Ver catálogo", "featuredCharacter": "Personagem em destaque", "viewProfile": "Ver perfil", "knownRoutes": "Rotas conhecidas",
+    "destinations": "Destinos entre dimensões", "viewAll": "Ver todos", "unknownPlace": "Local desconhecido"
+  },
+  "Catalog": {
+    "eyebrow": "Catálogo", "characters": "Personagens", "locations": "Localidades", "episodes": "Episódios", "character": "Personagem", "location": "Localidade", "episode": "Episódio",
+    "results": "{count, plural, =0 {Nenhum resultado encontrado} one {# resultado encontrado} other {# resultados encontrados}}", "contentTypes": "Tipos de conteúdo",
+    "filter": "Filtrar", "filterBy": "Filtrar por {field}", "allOptions": "Todos",
+    "filters": {"name": "Nome", "status": "Status", "species": "Espécie", "gender": "Gênero", "type": "Tipo", "dimension": "Dimensão", "episode": "Código do episódio"},
+    "filterOptions": {"alive": "Vivo", "dead": "Morto", "unknown": "Desconhecido", "human": "Humano", "alien": "Alienígena", "humanoid": "Humanoide", "poopybutthole": "Poopybutthole", "mythologicalCreature": "Criatura mitológica", "animal": "Animal", "robot": "Robô", "cronenberg": "Cronenberg", "disease": "Doença", "female": "Feminino", "male": "Masculino", "genderless": "Sem gênero"},
+    "previous": "Anterior", "next": "Próxima", "back": "Voltar ao catálogo", "record": "Registro #{id}",
+    "details": {"status": "Status", "species": "Espécie", "type": "Tipo", "gender": "Gênero", "origin": "Origem", "currentLocation": "Localização atual", "dimension": "Dimensão", "residents": "Residentes", "code": "Código", "airedAt": "Exibido em", "characters": "Personagens"}
+  },
+  "CharacterProfile": {
+    "episodesTitle": "Episódios com este personagem",
+    "episodesCount": "{count, plural, =0 {Nenhum episódio} one {# episódio} other {# episódios}}",
+    "episodesEmpty": "Nenhum episódio relacionado foi encontrado.",
+    "locationsTitle": "Localidades relacionadas",
+    "locationsCount": "{count, plural, =0 {Nenhuma localidade} one {# localidade} other {# localidades}}",
+    "locationsEmpty": "Não há uma localidade conhecida para este personagem."
+  },
+  "Favorites": {
+    "myCollection": "Minha coleção", "title": "Favoritos", "description": "Personagens, localidades e episódios salvos por você.", "yourCollection": "Sua coleção",
+    "emptyTitle": "Nenhum favorito por enquanto", "emptyDescription": "Você ainda não adicionou nada à sua coleção. Continue explorando o multiverso para encontrar seus favoritos.",
+    "exploreCharacters": "Explorar personagens", "add": "Favoritar", "remove": "Favoritado", "addLabel": "Adicionar aos favoritos", "removeLabel": "Remover dos favoritos",
+    "added": "Adicionado aos favoritos.", "removed": "Removido dos favoritos."
+  },
+  "Comments": {
+    "discussion": "Discussão", "title": "Comentários", "add": "Adicionar comentário", "placeholder": "Compartilhe o que achou...", "submit": "Comentar", "submitting": "Enviando...",
+    "empty": "Seja a primeira pessoa a comentar.", "upvote": "Dar voto positivo", "downvote": "Dar voto negativo", "published": "Comentário publicado.", "rated": "Avaliação atualizada."
+  },
+  "Errors": {
+    "network": "Não foi possível conectar ao servidor.", "request": "Não foi possível concluir a solicitação.", "invalidResponse": "O servidor retornou uma resposta inválida.",
+    "authentication": "Sua sessão expirou. Entre novamente.", "signIn": "Não foi possível entrar.", "signUp": "Não foi possível criar sua conta.", "signOut": "Não foi possível sair da conta.",
+    "catalog": "Não foi possível carregar o catálogo.", "resource": "Não foi possível carregar o recurso.", "favorites": "Não foi possível carregar os favoritos.",
+    "favoriteStatus": "Não foi possível consultar o favorito.", "favoriteMutation": "Não foi possível atualizar o favorito.", "comments": "Não foi possível carregar os comentários.",
+    "commentMutation": "Não foi possível publicar o comentário.", "ratingMutation": "Não foi possível avaliar o comentário.", "invalidFavorite": "Identificador de favorito inválido.",
+    "invalidComment": "O comentário deve ter entre 1 e 1000 caracteres.", "invalidRating": "Dados de avaliação inválidos.", "pageTitle": "Algo saiu do portal",
+    "pageDescription": "Não foi possível carregar esta realidade. Tente novamente em instantes.", "notFoundTitle": "Realidade não encontrada",
+    "notFoundDescription": "A página que você procurou não existe neste universo.", "backHome": "Voltar ao início"
+  }
+}

@@ -10,14 +10,24 @@ import {
   Req,
   Res,
 } from '@nestjs/common';
+import { ApiBody, ApiCookieAuth, ApiTags } from '@nestjs/swagger';
 import type { Request, Response } from 'express';
 import { AuthService } from './auth.service.js';
 import { CurrentUser } from './current-user.decorator.js';
 import type { CurrentUserPayload } from './current-user.decorator.js';
-import { MobileRefreshDto, SignInDto, SignUpDto } from './dto.js';
+import { ZodValidationPipe } from '../../common/pipes/zod-validation.pipe.js';
+import {
+  MobileRefreshSchema,
+  type MobileRefreshInput,
+  SignInSchema,
+  type SignInInput,
+  SignUpSchema,
+  type SignUpInput,
+} from './presentation/schemas/auth.schemas.js';
 import { Public } from './public.decorator.js';
 import { AuthCookieService } from './auth-cookie.service.js';
 
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(
@@ -29,8 +39,20 @@ export class AuthController {
     return { ip: req.ip, userAgent: req.get('user-agent') };
   }
 
+  @ApiBody({
+    schema: {
+      type: 'object',
+      required: ['firstName', 'lastName', 'email', 'password'],
+      properties: {
+        firstName: { type: 'string', maxLength: 100 },
+        lastName: { type: 'string', maxLength: 100 },
+        email: { type: 'string', format: 'email' },
+        password: { type: 'string', format: 'password', minLength: 8, maxLength: 72 },
+      },
+    },
+  })
   @Public() @Post('sign-up') async signUp(
-    @Body() dto: SignUpDto,
+    @Body(new ZodValidationPipe(SignUpSchema)) dto: SignUpInput,
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
   ) {
@@ -39,8 +61,18 @@ export class AuthController {
     return { user: r.user };
   }
 
+  @ApiBody({
+    schema: {
+      type: 'object',
+      required: ['email', 'password'],
+      properties: {
+        email: { type: 'string', format: 'email' },
+        password: { type: 'string', format: 'password' },
+      },
+    },
+  })
   @Public() @Post('sign-in') async signIn(
-    @Body() dto: SignInDto,
+    @Body(new ZodValidationPipe(SignInSchema)) dto: SignInInput,
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
   ) {
@@ -50,28 +82,32 @@ export class AuthController {
   }
 
   @Public() @Post('mobile/sign-up') async mobileSignUp(
-    @Body() dto: SignUpDto,
+    @Body(new ZodValidationPipe(SignUpSchema)) dto: SignUpInput,
     @Req() req: Request,
   ) {
     return this.auth.signUp(dto, this.session(req));
   }
 
   @Public() @Post('mobile/sign-in') async mobileSignIn(
-    @Body() dto: SignInDto,
+    @Body(new ZodValidationPipe(SignInSchema)) dto: SignInInput,
     @Req() req: Request,
   ) {
     return this.auth.signIn(dto, this.session(req));
   }
 
   @Public() @Post('mobile/refresh') async mobileRefresh(
-    @Body() dto: MobileRefreshDto,
+    @Body(new ZodValidationPipe(MobileRefreshSchema)) dto: MobileRefreshInput,
     @Req() req: Request,
   ) {
     return this.auth.refresh(dto.refreshToken, this.session(req));
   }
 
-  @Public() @Post('mobile/sign-out') @HttpCode(HttpStatus.NO_CONTENT)
-  async mobileSignOut(@Body() dto: MobileRefreshDto): Promise<void> {
+  @Public()
+  @Post('mobile/sign-out')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async mobileSignOut(
+    @Body(new ZodValidationPipe(MobileRefreshSchema)) dto: MobileRefreshInput,
+  ): Promise<void> {
     await this.auth.signOut(dto.refreshToken);
   }
 
@@ -95,10 +131,17 @@ export class AuthController {
     this.cookies.clear(res);
   }
 
+  @ApiCookieAuth('access_token')
   @Get('sessions') sessions(@CurrentUser() user: CurrentUserPayload) {
     return this.auth.sessions(user.sub);
   }
 
+  @ApiCookieAuth('access_token')
+  @Get('me') currentUser(@CurrentUser() user: CurrentUserPayload) {
+    return this.auth.currentUser(user.sub);
+  }
+
+  @ApiCookieAuth('access_token')
   @Delete('sessions/:id') @HttpCode(HttpStatus.NO_CONTENT) revoke(
     @CurrentUser() user: CurrentUserPayload,
     @Param('id') id: string,

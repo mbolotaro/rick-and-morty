@@ -1,6 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { randomUUID } from 'node:crypto';
+import { translate } from '../../../common/i18n/translate.js';
 import { EnvService } from '../../env/env.service.js';
 import {
   AccessTokenPayload,
@@ -37,14 +38,18 @@ export class TokenService {
   async verifyAccess(token: string): Promise<AccessTokenPayload> {
     const payload = await this.jwt.verifyAsync<AccessTokenPayload>(token);
     if (payload.type !== 'access')
-      throw new UnauthorizedException('Token inválido.');
+      throw new UnauthorizedException(
+        translate('errors.auth.invalidToken', 'Token inválido.'),
+      );
     return payload;
   }
 
   async verifyRefresh(token: string): Promise<RefreshTokenPayload> {
     const payload = await this.jwt.verifyAsync<RefreshTokenPayload>(token);
     if (payload.type !== 'refresh')
-      throw new UnauthorizedException('Token inválido.');
+      throw new UnauthorizedException(
+        translate('errors.auth.invalidToken', 'Token inválido.'),
+      );
     return payload;
   }
 }

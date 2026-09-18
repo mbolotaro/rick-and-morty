@@ -1,9 +1,13 @@
 import 'server-only';
 
 import { cookies } from 'next/headers';
-import type { AuthResponse } from './types';
+import { authUserSchema, type AuthUser } from './types';
+import { requestLanguage } from '../i18n/server';
+import { ensureResponse, parseResponse, serverFetch } from '../http/server';
 
-const backendUrl = process.env.BACKEND_URL ?? 'http://localhost:3001';
+const backendUrl = process.env.BACKEND_URL ?? 'http://localhost:3040';
+
+export type SessionStatus = 'authenticated' | 'refreshable' | 'anonymous';
 
 function backendCookies(access?: string, refresh?: string): string {
   return [
@@ -14,43 +18,13 @@ function backendCookies(access?: string, refresh?: string): string {
     .join('; ');
 }
 
-function readCookie(setCookie: string, name: string): string | undefined {
-  return new RegExp(`${name}=([^;]+)`).exec(setCookie)?.[1];
-}
-
-async function persistTokens(response: Response): Promise<void> {
-  const setCookie = response.headers.get('set-cookie') ?? '';
-  const accessToken = readCookie(setCookie, 'access_token');
-  const refreshToken = readCookie(setCookie, 'refresh_token');
-  const store = await cookies();
-
-  if (accessToken) {
-    store.set('access_token', accessToken, {
-      httpOnly: true,
-      sameSite: 'lax',
-      secure: process.env.NODE_ENV === 'production',
-      path: '/',
-      maxAge: 15 * 60,
-    });
-  }
-
-  if (refreshToken) {
-    store.set('refresh_token', refreshToken, {
-      httpOnly: true,
-      sameSite: 'lax',
-      secure: process.env.NODE_ENV === 'production',
-      path: '/',
-      maxAge: 30 * 24 * 60 * 60,
-    });
-  }
-}
-
 export async function authRequest(
   path: string,
   init: RequestInit = {},
 ): Promise<Response> {
   const store = await cookies();
-  return fetch(`${backendUrl}${path}`, {
+
+  return serverFetch(`${backendUrl}${path}`, {
     ...init,
     headers: {
       ...init.headers,
@@ -59,45 +33,31 @@ export async function authRequest(
         store.get('refresh_token')?.value,
       ),
       'content-type': 'application/json',
+      'accept-language': await requestLanguage(),
     },
     cache: 'no-store',
   });
 }
 
-export async function signIn(payload: Record<string, string>): Promise<AuthResponse> {
-  const response = await authRequest('/auth/sign-in', {
-    method: 'POST',
-    body: JSON.stringify(payload),
-  });
-  if (!response.ok) throw new Error('E-mail ou senha inválidos.');
-  await persistTokens(response);
-  return response.json();
-}
+export async function getSessionStatus(): Promise<SessionStatus> {
+  const response = await authRequest('/auth/sessions');
 
-export async function signUp(payload: Record<string, string>): Promise<AuthResponse> {
-  const response = await authRequest('/auth/sign-up', {
-    method: 'POST',
-    body: JSON.stringify(payload),
-  });
-  if (!response.ok) throw new Error('Não foi possível criar sua conta.');
-  await persistTokens(response);
-  return response.json();
-}
+  if (response.ok) return 'authenticated';
 
-export async function signOut(): Promise<void> {
-  await authRequest('/auth/sign-out', { method: 'POST' });
   const store = await cookies();
-  store.delete('access_token');
-  store.delete('refresh_token');
+  const canRefresh = response.status === 401 && store.has('refresh_token');
+
+  if (canRefresh) return 'refreshable';
+  if (response.status === 401) return 'anonymous';
+
+  await ensureResponse(response, 'request');
+  return 'anonymous';
 }
 
-export async function hasSession(): Promise<boolean> {
-  let response = await authRequest('/auth/sessions');
-  if (response.ok) return true;
+export async function getCurrentUser(): Promise<AuthUser | null> {
+  const response = await authRequest('/auth/me');
 
-  if (response.status !== 401) return false;
-  response = await authRequest('/auth/refresh', { method: 'POST' });
-  if (!response.ok) return false;
-  await persistTokens(response);
-  return (await authRequest('/auth/sessions')).ok;
+  if (response.status === 401) return null;
+
+  return parseResponse(response, authUserSchema, 'request');
 }

@@ -1,0 +1,67 @@
+:root,
+:root[data-theme='portal'] {
+  --color-background-canvas: var(--primitive-forest-950);
+  --color-background-sidebar: color-mix(in srgb, var(--primitive-forest-950) 91%, transparent);
+  --color-background-topbar: color-mix(in srgb, var(--primitive-forest-950) 58%, transparent);
+  --color-surface-primary: color-mix(in srgb, var(--primitive-forest-900) 91%, transparent);
+  --color-surface-secondary: color-mix(in srgb, var(--primitive-forest-850) 84%, transparent);
+  --color-surface-tertiary: color-mix(in srgb, var(--primitive-forest-800) 72%, transparent);
+  --color-surface-hover: color-mix(in srgb, var(--primitive-forest-700) 66%, transparent);
+  --color-surface-active: color-mix(in srgb, var(--primitive-portal-900) 52%, transparent);
+  --color-surface-input: color-mix(in srgb, var(--primitive-forest-950) 76%, transparent);
+
+  --color-text-primary: var(--primitive-mist-100);
+  --color-text-secondary: var(--primitive-mist-300);
+  --color-text-muted: var(--primitive-mist-500);
+  --color-accent-primary: var(--primitive-portal-400);
+  --color-accent-strong: var(--primitive-portal-300);
+  --color-accent-muted: var(--primitive-portal-600);
+
+  --color-overlay-page: color-mix(in srgb, var(--primitive-forest-950) 57%, transparent);
+  --color-overlay-edge: color-mix(in srgb, var(--primitive-black) 38%, transparent);
+  --image-background-app: url('/images/multiverse-background.jpg');
+}
+
+:root[data-theme='crystal-grove'] {
+  --color-background-canvas: var(--primitive-space-950);
+  --color-background-sidebar: color-mix(in srgb, var(--primitive-space-950) 93%, transparent);
+  --color-background-topbar: color-mix(in srgb, var(--primitive-space-950) 66%, transparent);
+  --color-surface-primary: color-mix(in srgb, var(--primitive-space-900) 90%, transparent);
+  --color-surface-secondary: color-mix(in srgb, var(--primitive-space-850) 85%, transparent);
+  --color-surface-tertiary: color-mix(in srgb, var(--primitive-space-800) 74%, transparent);
+  --color-surface-hover: color-mix(in srgb, var(--primitive-space-700) 68%, transparent);
+  --color-surface-active: color-mix(in srgb, var(--primitive-crystal-600) 32%, transparent);
+  --color-surface-input: color-mix(in srgb, var(--primitive-space-950) 78%, transparent);
+
+  --color-text-primary: var(--primitive-mist-100);
+  --color-text-secondary: var(--primitive-mist-200);
+  --color-text-muted: var(--primitive-mist-400);
+  --color-text-on-accent: var(--primitive-space-950);
+
+  --color-accent-primary: var(--primitive-crystal-400);
+  --color-accent-strong: var(--primitive-crystal-300);
+  --color-accent-muted: var(--primitive-crystal-600);
+  --color-accent-soft: color-mix(in srgb, var(--primitive-crystal-500) 22%, transparent);
+  --color-accent-softer: color-mix(in srgb, var(--primitive-crystal-500) 10%, transparent);
+  --color-info: var(--primitive-meadow-400);
+  --color-info-soft: color-mix(in srgb, var(--primitive-meadow-400) 20%, transparent);
+  --color-special: var(--primitive-aurora-400);
+  --color-special-soft: color-mix(in srgb, var(--primitive-aurora-400) 20%, transparent);
+  --color-danger: var(--primitive-rose-400);
+
+  --color-border-subtle: color-mix(in srgb, var(--primitive-crystal-400) 14%, transparent);
+  --color-border-default: color-mix(in srgb, var(--primitive-crystal-300) 22%, transparent);
+  --color-border-accent: color-mix(in srgb, var(--primitive-crystal-400) 46%, transparent);
+  --color-focus-ring: color-mix(in srgb, var(--primitive-crystal-400) 58%, transparent);
+  --color-outline-strong: color-mix(in srgb, var(--primitive-space-950) 82%, transparent);
+  --color-cartoon-shadow: color-mix(in srgb, var(--primitive-space-950) 72%, transparent);
+  --color-cartoon-highlight: color-mix(in srgb, var(--primitive-crystal-300) 22%, transparent);
+
+  --color-overlay-page: color-mix(in srgb, var(--primitive-space-950) 52%, transparent);
+  --color-overlay-edge: color-mix(in srgb, var(--primitive-black) 46%, transparent);
+  --color-glow: color-mix(in srgb, var(--primitive-crystal-400) 40%, transparent);
+  --shadow-surface: inset 0 1px color-mix(in srgb, var(--primitive-white) 4%, transparent), 0 14px 38px color-mix(in srgb, var(--primitive-black) 22%, transparent);
+  --shadow-sidebar: 18px 0 48px color-mix(in srgb, var(--primitive-black) 28%, transparent);
+
+  --image-background-app: url('/images/crystal-grove-background.jpg');
+}

@@ -2,6 +2,7 @@ import 'server-only';
 
 import { authRequest } from '@/lib/auth/server';
 import { parseResponse } from '@/lib/http/server';
+import { HttpStatus } from '@/lib/http/status';
 import {
   favoriteCollectionSchema,
   favoriteStatusSchema,
@@ -18,7 +19,7 @@ const emptyFavorites: FavoriteCollection = {
 export async function getFavorites(): Promise<FavoriteCollection> {
   const response = await authRequest('/favorites');
 
-  if (response.status === 401) return emptyFavorites;
+  if (response.status === HttpStatus.Unauthorized) return emptyFavorites;
   return parseResponse(response, favoriteCollectionSchema, 'favorites');
 }
 
@@ -28,7 +29,7 @@ export async function getFavoriteStatus(
 ): Promise<boolean> {
   const response = await authRequest(`/favorites/${resource}/${externalId}`);
 
-  if (response.status === 401) return false;
+  if (response.status === HttpStatus.Unauthorized) return false;
   return (
     await parseResponse(response, favoriteStatusSchema, 'favoriteStatus')
   ).liked;

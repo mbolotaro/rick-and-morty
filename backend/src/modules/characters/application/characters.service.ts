@@ -2,34 +2,23 @@ import { Injectable } from '@nestjs/common';
 import { CatalogEpisodesService } from '../../episodes/application/catalog-episodes.service.js';
 import { LocationsService } from '../../locations/application/locations.service.js';
 import { CatalogLocalizerService } from '../../rick-and-morty/application/catalog-localizer.service.js';
-import { RickAndMortyApiClient } from '../../rick-and-morty/infrastructure/rick-and-morty-api.client.js';
-import {
-  CharacterSchema,
-  pageSchema,
-} from '../../rick-and-morty/infrastructure/rick-and-morty.schemas.js';
+import { toLocalPage } from '../../rick-and-morty/application/catalog-pagination.js';
+import { CatalogGateway } from '../../rick-and-morty/application/ports/catalog-gateway.port.js';
 import type { CharactersQueryContract } from './contracts/characters-query.contract.js';
 
 @Injectable()
 export class CharactersService {
   constructor(
-    private readonly api: RickAndMortyApiClient,
+    private readonly api: CatalogGateway,
     private readonly localizer: CatalogLocalizerService,
     private readonly episodes: CatalogEpisodesService,
     private readonly locations: LocationsService,
   ) {}
 
   async list(query: CharactersQueryContract) {
-    const page = await this.api.getPage(
-      'character',
-      query,
-      pageSchema(CharacterSchema),
-    );
+    const page = await this.api.getCharactersPage(query);
     return {
-      info: {
-        ...page.info,
-        next: this.localUrl(page.info.next),
-        prev: this.localUrl(page.info.prev),
-      },
+      ...toLocalPage('characters', page),
       results: page.results.map((character) =>
         this.localizer.character(character),
       ),
@@ -37,7 +26,7 @@ export class CharactersService {
   }
 
   async getById(id: number) {
-    const character = await this.api.getById('character', id, CharacterSchema);
+    const character = await this.api.getCharacter(id);
     return this.localizer.character(character);
   }
 
@@ -64,9 +53,5 @@ export class CharactersService {
     }
 
     return id;
-  }
-
-  private localUrl(url: string | null): string | null {
-    return url ? `/characters${new URL(url).search}` : null;
   }
 }

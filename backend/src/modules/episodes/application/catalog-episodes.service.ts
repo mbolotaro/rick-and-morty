@@ -1,41 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { CatalogLocalizerService } from '../../rick-and-morty/application/catalog-localizer.service.js';
-import { RickAndMortyApiClient } from '../../rick-and-morty/infrastructure/rick-and-morty-api.client.js';
-import {
-  EpisodeSchema,
-  pageSchema,
-} from '../../rick-and-morty/infrastructure/rick-and-morty.schemas.js';
+import { toLocalPage } from '../../rick-and-morty/application/catalog-pagination.js';
+import { CatalogGateway } from '../../rick-and-morty/application/ports/catalog-gateway.port.js';
 import type { EpisodesQueryContract } from './contracts/episodes-query.contract.js';
 @Injectable()
 export class CatalogEpisodesService {
   constructor(
-    private readonly api: RickAndMortyApiClient,
+    private readonly api: CatalogGateway,
     private readonly localizer: CatalogLocalizerService,
   ) {}
   async list(query: EpisodesQueryContract) {
-    const page = await this.api.getPage(
-      'episode',
-      query,
-      pageSchema(EpisodeSchema),
-    );
+    const page = await this.api.getEpisodesPage(query);
     return {
-      info: {
-        ...page.info,
-        next: this.localUrl(page.info.next),
-        prev: this.localUrl(page.info.prev),
-      },
+      ...toLocalPage('episodes', page),
       results: page.results.map((episode) => this.localizer.episode(episode)),
     };
   }
   async getById(id: number) {
-    const episode = await this.api.getById('episode', id, EpisodeSchema);
+    const episode = await this.api.getEpisode(id);
     return this.localizer.episode(episode);
   }
   async getMany(ids: number[]) {
-    const episodes = await this.api.getMany('episode', ids, EpisodeSchema);
+    const episodes = await this.api.getEpisodes(ids);
     return episodes.map((episode) => this.localizer.episode(episode));
-  }
-  private localUrl(url: string | null): string | null {
-    return url ? `/episodes${new URL(url).search}` : null;
   }
 }

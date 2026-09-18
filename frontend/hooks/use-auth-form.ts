@@ -1,13 +1,12 @@
 'use client';
 
-import { useMutation } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
 import type { FormEvent } from 'react';
 import { toast } from 'sonner';
 import { signInAction, signUpAction } from '@/app/auth/actions';
 import { unwrapAction } from '@/lib/actions/result';
 import type { AuthUser } from '@/lib/auth/types';
+import { useActionMutation } from './use-action-mutation';
 
 export type AuthMode = 'sign-in' | 'sign-up';
 
@@ -28,10 +27,9 @@ function field(formData: FormData, name: string): string {
 }
 
 export function useAuthForm(mode: AuthMode): AuthFormState {
-  const router = useRouter();
   const t = useTranslations('Auth');
 
-  const mutation = useMutation<AuthUser, Error, AuthFormValues>({
+  const mutation = useActionMutation<AuthUser, AuthFormValues>({
     mutationFn: async (values) => {
       const result =
         mode === 'sign-in'
@@ -45,10 +43,9 @@ export function useAuthForm(mode: AuthMode): AuthFormState {
     },
     onSuccess: () => {
       toast.success(mode === 'sign-in' ? t('signInSuccess') : t('signUpSuccess'));
-      router.push('/dashboard');
-      router.refresh();
     },
-    onError: (error) => toast.error(error.message),
+    redirectOnSuccess: '/dashboard',
+    refreshOnSuccess: true,
   });
 
   function submit(event: FormEvent<HTMLFormElement>): void {

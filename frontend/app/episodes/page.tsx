@@ -1,16 +1,7 @@
-import { CatalogShell } from '@/components/catalog/catalog-shell';
-import { ResourceList } from '@/components/catalog/resource-list';
-import { listResource } from '@/lib/catalog/server';
+import { CatalogListPage } from '@/components/catalog/catalog-list-page';
 
 export const instant = false;
 
 export default async function EpisodesPage({ searchParams }: PageProps<'/episodes'>) {
-  const query = await searchParams;
-  const page = await listResource('episodes', query);
-
-  return (
-    <CatalogShell>
-      <ResourceList resource="episodes" page={page} query={query} />
-    </CatalogShell>
-  );
+  return <CatalogListPage resource="episodes" searchParams={searchParams} />;
 }

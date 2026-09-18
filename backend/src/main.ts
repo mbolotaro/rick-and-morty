@@ -1,13 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
-import { patchNestJsSwagger } from 'nestjs-zod';
 import { AppModule } from './app.module.js';
 import { EnvService } from './modules/env/env.service.js';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  patchNestJsSwagger();
   const env = app.get(EnvService);
   app.use(cookieParser());
   app.enableCors({

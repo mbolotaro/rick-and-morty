@@ -1,7 +1,9 @@
 import 'server-only';
 import { z } from 'zod';
 import { requestLanguage } from '../i18n/server';
+import { serverConfig } from '../config/server';
 import { parseResponse, serverFetch } from '../http/server';
+import { HttpStatus } from '../http/status';
 
 export type CatalogResource = 'characters' | 'locations' | 'episodes';
 
@@ -76,7 +78,7 @@ const schemas = {
   episodes: episodeSchema,
 } as const;
 
-const baseUrl = process.env.BACKEND_URL ?? 'http://localhost:3040';
+const baseUrl = serverConfig.BACKEND_URL;
 
 export async function listResource(
   resource: CatalogResource,
@@ -111,7 +113,7 @@ export async function getResource(
     cache: 'no-store',
   });
 
-  if (response.status === 404) return null;
+  if (response.status === HttpStatus.NotFound) return null;
 
   return parseResponse(response, schemas[resource], 'resource');
 }
@@ -124,7 +126,7 @@ export async function getCharacterProfile(
     cache: 'no-store',
   });
 
-  if (response.status === 404) return null;
+  if (response.status === HttpStatus.NotFound) return null;
 
   return parseResponse(response, characterProfileSchema, 'resource');
 }

@@ -1,14 +1,13 @@
 'use client';
 
-import { useMutation } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
 import { useState, type FormEvent } from 'react';
 import { toast } from 'sonner';
 import { createCommentAction } from '@/app/comments/actions';
-import { ActionError, unwrapAction } from '@/lib/actions/result';
+import { unwrapAction } from '@/lib/actions/result';
 import { COMMENT_MAX_LENGTH, type Comment } from '@/lib/comments/types';
 import type { FavoriteResource } from '@/lib/favorites/types';
+import { useActionMutation } from './use-action-mutation';
 
 interface CommentFormInput {
   resource: FavoriteResource;
@@ -25,25 +24,17 @@ interface CommentFormState {
 
 export function useCommentForm({ resource, externalId }: CommentFormInput): CommentFormState {
   const [content, setContent] = useState('');
-  const router = useRouter();
   const t = useTranslations('Comments');
 
-  const mutation = useMutation<Comment, Error>({
+  const mutation = useActionMutation<Comment, void>({
     mutationFn: async () =>
       unwrapAction(await createCommentAction({ resource, externalId, content })),
     onSuccess: () => {
       setContent('');
       toast.success(t('published'));
-      router.refresh();
     },
-    onError: (error) => {
-      if (error instanceof ActionError && error.status === 401) {
-        router.push('/login');
-        return;
-      }
-
-      toast.error(error.message);
-    },
+    refreshOnSuccess: true,
+    redirectOnUnauthorized: '/login',
   });
 
   function submit(event: FormEvent<HTMLFormElement>): void {

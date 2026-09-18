@@ -23,7 +23,7 @@ export class JwtTokenProvider extends TokenProvider {
     const payload: AccessTokenPayload = { sub, scope, type: 'access' };
 
     return this.jwt.signAsync(payload, {
-      expiresIn: this.env.get('JWT_ACCESS_EXPIRATION') as any,
+      expiresIn: this.env.get('JWT_ACCESS_EXPIRATION'),
     });
   }
 
@@ -34,9 +34,25 @@ export class JwtTokenProvider extends TokenProvider {
     return {
       jti,
       token: await this.jwt.signAsync(payload, {
-        expiresIn: this.env.get('JWT_REFRESH_EXPIRATION') as any,
+        expiresIn: this.env.get('JWT_REFRESH_EXPIRATION'),
       }),
     };
+  }
+
+  refreshExpiresAt(): Date {
+    const duration = this.env.get('JWT_REFRESH_EXPIRATION');
+    const match = /^(\d+)([smhd])$/.exec(duration);
+    const unit = match?.[2];
+    const multiplier =
+      unit === 's'
+        ? 1_000
+        : unit === 'm'
+          ? 60_000
+          : unit === 'h'
+            ? 3_600_000
+            : 86_400_000;
+
+    return new Date(Date.now() + Number(match?.[1] ?? 0) * multiplier);
   }
 
   async verifyAccess(token: string): Promise<AccessTokenPayload> {

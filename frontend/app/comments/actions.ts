@@ -2,7 +2,8 @@
 
 import { revalidatePath } from 'next/cache';
 import { getTranslations } from 'next-intl/server';
-import { actionFailure, actionSuccess, type ActionResult } from '@/lib/actions/result';
+import { actionFailure, type ActionResult } from '@/lib/actions/result';
+import { executeAction } from '@/lib/actions/execute';
 import { createComment, rateComment } from '@/lib/comments/mutations';
 import {
   COMMENT_MAX_LENGTH,
@@ -42,16 +43,11 @@ export async function createCommentAction(
     return actionFailure(new ApiError(t('invalidComment'), 400), t('invalidComment'));
   }
 
-  try {
+  return executeAction(async () => {
     const comment = await createComment(resource.data, input.externalId, content);
     revalidatePath(resourcePath(resource.data, input.externalId));
-    return actionSuccess(comment);
-  } catch (error) {
-    return actionFailure(
-      error instanceof Error ? error : new Error(t('commentMutation')),
-      t('commentMutation'),
-    );
-  }
+    return comment;
+  }, t('commentMutation'));
 }
 
 export async function rateCommentAction(
@@ -65,14 +61,9 @@ export async function rateCommentAction(
     return actionFailure(new ApiError(t('invalidRating'), 400), t('invalidRating'));
   }
 
-  try {
+  return executeAction(async () => {
     const rating = await rateComment(input.commentId, rate.data);
     revalidatePath(resourcePath(resource.data, input.externalId));
-    return actionSuccess(rating);
-  } catch (error) {
-    return actionFailure(
-      error instanceof Error ? error : new Error(t('ratingMutation')),
-      t('ratingMutation'),
-    );
-  }
+    return rating;
+  }, t('ratingMutation'));
 }

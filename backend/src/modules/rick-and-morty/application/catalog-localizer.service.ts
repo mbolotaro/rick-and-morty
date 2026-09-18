@@ -7,7 +7,7 @@ import type {
   Character,
   Episode,
   Location,
-} from '../infrastructure/rick-and-morty.schemas.js';
+} from './contracts/catalog.models.js';
 
 const statusKeys: Record<string, string> = {
   alive: 'alive',

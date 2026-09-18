@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
-import { EpisodesService } from './episodes.service.js';
-import { EpisodesController } from './episodes.controller.js';
+import { RickAndMortyModule } from '../rick-and-morty/rick-and-morty.module.js';
+import { CatalogEpisodesService } from './application/catalog-episodes.service.js';
+import { CatalogEpisodesController } from './presentation/catalog-episodes.controller.js';
 
 @Module({
-  controllers: [EpisodesController],
-  providers: [EpisodesService],
+  imports: [RickAndMortyModule],
+  controllers: [CatalogEpisodesController],
+  providers: [CatalogEpisodesService],
+  exports: [CatalogEpisodesService],
 })
 export class EpisodesModule {}

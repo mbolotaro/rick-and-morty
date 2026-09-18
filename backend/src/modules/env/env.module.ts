@@ -4,7 +4,7 @@ import { EnvSchema } from './env.schema.js';
 import type { AppEnv } from './env.schema.js';
 import { EnvService } from './env.service.js';
 
-function validate(raw: Record<string, unknown>): AppEnv {
+function validate(raw: NodeJS.ProcessEnv): AppEnv {
   const result = EnvSchema.safeParse(raw);
 
   if (!result.success) {

@@ -9,7 +9,18 @@
 * 🟢 You can import this file directly.
 */
 
+export const CommentResource = {
+  CHARACTERS: 'CHARACTERS',
+  LOCATIONS: 'LOCATIONS',
+  EPISODES: 'EPISODES'
+} as const
+
+export type CommentResource = (typeof CommentResource)[keyof typeof CommentResource]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const CommentRate = {
+  UP: 'UP',
+  DOWN: 'DOWN'
+} as const
+
+export type CommentRate = (typeof CommentRate)[keyof typeof CommentRate]

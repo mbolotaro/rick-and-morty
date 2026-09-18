@@ -398,6 +398,11 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
+  Comment: 'Comment',
+  RateComment: 'RateComment',
+  LikedCharacter: 'LikedCharacter',
+  LikedLocation: 'LikedLocation',
+  LikedEpisode: 'LikedEpisode',
   EmailVerificationToken: 'EmailVerificationToken',
   PasswordResetToken: 'PasswordResetToken',
   RefreshToken: 'RefreshToken'
@@ -416,7 +421,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "emailVerificationToken" | "passwordResetToken" | "refreshToken"
+    modelProps: "user" | "comment" | "rateComment" | "likedCharacter" | "likedLocation" | "likedEpisode" | "emailVerificationToken" | "passwordResetToken" | "refreshToken"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -491,6 +496,376 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.UserCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UserCountAggregateOutputType> | number
+        }
+      }
+    }
+    Comment: {
+      payload: Prisma.$CommentPayload<ExtArgs>
+      fields: Prisma.CommentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CommentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CommentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CommentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CommentPayload>
+        }
+        findFirst: {
+          args: Prisma.CommentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CommentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CommentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CommentPayload>
+        }
+        findMany: {
+          args: Prisma.CommentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CommentPayload>[]
+        }
+        create: {
+          args: Prisma.CommentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CommentPayload>
+        }
+        createMany: {
+          args: Prisma.CommentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CommentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CommentPayload>[]
+        }
+        delete: {
+          args: Prisma.CommentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CommentPayload>
+        }
+        update: {
+          args: Prisma.CommentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CommentPayload>
+        }
+        deleteMany: {
+          args: Prisma.CommentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CommentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CommentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CommentPayload>[]
+        }
+        upsert: {
+          args: Prisma.CommentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CommentPayload>
+        }
+        aggregate: {
+          args: Prisma.CommentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateComment>
+        }
+        groupBy: {
+          args: Prisma.CommentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CommentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CommentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CommentCountAggregateOutputType> | number
+        }
+      }
+    }
+    RateComment: {
+      payload: Prisma.$RateCommentPayload<ExtArgs>
+      fields: Prisma.RateCommentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RateCommentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RateCommentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RateCommentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RateCommentPayload>
+        }
+        findFirst: {
+          args: Prisma.RateCommentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RateCommentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RateCommentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RateCommentPayload>
+        }
+        findMany: {
+          args: Prisma.RateCommentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RateCommentPayload>[]
+        }
+        create: {
+          args: Prisma.RateCommentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RateCommentPayload>
+        }
+        createMany: {
+          args: Prisma.RateCommentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RateCommentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RateCommentPayload>[]
+        }
+        delete: {
+          args: Prisma.RateCommentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RateCommentPayload>
+        }
+        update: {
+          args: Prisma.RateCommentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RateCommentPayload>
+        }
+        deleteMany: {
+          args: Prisma.RateCommentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RateCommentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RateCommentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RateCommentPayload>[]
+        }
+        upsert: {
+          args: Prisma.RateCommentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RateCommentPayload>
+        }
+        aggregate: {
+          args: Prisma.RateCommentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRateComment>
+        }
+        groupBy: {
+          args: Prisma.RateCommentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RateCommentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RateCommentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RateCommentCountAggregateOutputType> | number
+        }
+      }
+    }
+    LikedCharacter: {
+      payload: Prisma.$LikedCharacterPayload<ExtArgs>
+      fields: Prisma.LikedCharacterFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LikedCharacterFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedCharacterPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LikedCharacterFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedCharacterPayload>
+        }
+        findFirst: {
+          args: Prisma.LikedCharacterFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedCharacterPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LikedCharacterFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedCharacterPayload>
+        }
+        findMany: {
+          args: Prisma.LikedCharacterFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedCharacterPayload>[]
+        }
+        create: {
+          args: Prisma.LikedCharacterCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedCharacterPayload>
+        }
+        createMany: {
+          args: Prisma.LikedCharacterCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LikedCharacterCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedCharacterPayload>[]
+        }
+        delete: {
+          args: Prisma.LikedCharacterDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedCharacterPayload>
+        }
+        update: {
+          args: Prisma.LikedCharacterUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedCharacterPayload>
+        }
+        deleteMany: {
+          args: Prisma.LikedCharacterDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LikedCharacterUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LikedCharacterUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedCharacterPayload>[]
+        }
+        upsert: {
+          args: Prisma.LikedCharacterUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedCharacterPayload>
+        }
+        aggregate: {
+          args: Prisma.LikedCharacterAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLikedCharacter>
+        }
+        groupBy: {
+          args: Prisma.LikedCharacterGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LikedCharacterGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LikedCharacterCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LikedCharacterCountAggregateOutputType> | number
+        }
+      }
+    }
+    LikedLocation: {
+      payload: Prisma.$LikedLocationPayload<ExtArgs>
+      fields: Prisma.LikedLocationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LikedLocationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedLocationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LikedLocationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedLocationPayload>
+        }
+        findFirst: {
+          args: Prisma.LikedLocationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedLocationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LikedLocationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedLocationPayload>
+        }
+        findMany: {
+          args: Prisma.LikedLocationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedLocationPayload>[]
+        }
+        create: {
+          args: Prisma.LikedLocationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedLocationPayload>
+        }
+        createMany: {
+          args: Prisma.LikedLocationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LikedLocationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedLocationPayload>[]
+        }
+        delete: {
+          args: Prisma.LikedLocationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedLocationPayload>
+        }
+        update: {
+          args: Prisma.LikedLocationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedLocationPayload>
+        }
+        deleteMany: {
+          args: Prisma.LikedLocationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LikedLocationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LikedLocationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedLocationPayload>[]
+        }
+        upsert: {
+          args: Prisma.LikedLocationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedLocationPayload>
+        }
+        aggregate: {
+          args: Prisma.LikedLocationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLikedLocation>
+        }
+        groupBy: {
+          args: Prisma.LikedLocationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LikedLocationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LikedLocationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LikedLocationCountAggregateOutputType> | number
+        }
+      }
+    }
+    LikedEpisode: {
+      payload: Prisma.$LikedEpisodePayload<ExtArgs>
+      fields: Prisma.LikedEpisodeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LikedEpisodeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedEpisodePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LikedEpisodeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedEpisodePayload>
+        }
+        findFirst: {
+          args: Prisma.LikedEpisodeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedEpisodePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LikedEpisodeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedEpisodePayload>
+        }
+        findMany: {
+          args: Prisma.LikedEpisodeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedEpisodePayload>[]
+        }
+        create: {
+          args: Prisma.LikedEpisodeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedEpisodePayload>
+        }
+        createMany: {
+          args: Prisma.LikedEpisodeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LikedEpisodeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedEpisodePayload>[]
+        }
+        delete: {
+          args: Prisma.LikedEpisodeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedEpisodePayload>
+        }
+        update: {
+          args: Prisma.LikedEpisodeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedEpisodePayload>
+        }
+        deleteMany: {
+          args: Prisma.LikedEpisodeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LikedEpisodeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LikedEpisodeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedEpisodePayload>[]
+        }
+        upsert: {
+          args: Prisma.LikedEpisodeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LikedEpisodePayload>
+        }
+        aggregate: {
+          args: Prisma.LikedEpisodeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLikedEpisode>
+        }
+        groupBy: {
+          args: Prisma.LikedEpisodeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LikedEpisodeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LikedEpisodeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LikedEpisodeCountAggregateOutputType> | number
         }
       }
     }
@@ -769,6 +1144,51 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+export const CommentScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  createdAt: 'createdAt',
+  userId: 'userId',
+  resource: 'resource',
+  externalId: 'externalId'
+} as const
+
+export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
+
+
+export const RateCommentScalarFieldEnum = {
+  userId: 'userId',
+  commentId: 'commentId',
+  value: 'value'
+} as const
+
+export type RateCommentScalarFieldEnum = (typeof RateCommentScalarFieldEnum)[keyof typeof RateCommentScalarFieldEnum]
+
+
+export const LikedCharacterScalarFieldEnum = {
+  userId: 'userId',
+  externalId: 'externalId'
+} as const
+
+export type LikedCharacterScalarFieldEnum = (typeof LikedCharacterScalarFieldEnum)[keyof typeof LikedCharacterScalarFieldEnum]
+
+
+export const LikedLocationScalarFieldEnum = {
+  userId: 'userId',
+  externalId: 'externalId'
+} as const
+
+export type LikedLocationScalarFieldEnum = (typeof LikedLocationScalarFieldEnum)[keyof typeof LikedLocationScalarFieldEnum]
+
+
+export const LikedEpisodeScalarFieldEnum = {
+  userId: 'userId',
+  externalId: 'externalId'
+} as const
+
+export type LikedEpisodeScalarFieldEnum = (typeof LikedEpisodeScalarFieldEnum)[keyof typeof LikedEpisodeScalarFieldEnum]
+
+
 export const EmailVerificationTokenScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -877,6 +1297,20 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
+ * Reference to a field of type 'CommentResource'
+ */
+export type EnumCommentResourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommentResource'>
+    
+
+
+/**
+ * Reference to a field of type 'CommentResource[]'
+ */
+export type ListEnumCommentResourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommentResource[]'>
+    
+
+
+/**
  * Reference to a field of type 'Int'
  */
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -887,6 +1321,34 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'CommentRate'
+ */
+export type EnumCommentRateFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommentRate'>
+    
+
+
+/**
+ * Reference to a field of type 'CommentRate[]'
+ */
+export type ListEnumCommentRateFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommentRate[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Float'
+ */
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+/**
+ * Reference to a field of type 'Float[]'
+ */
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 /**
@@ -1041,6 +1503,11 @@ export interface PrismaClientOptionsWithAdapter extends PrismaClientBaseOptions 
 export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaClientOptionsWithAdapter
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
+  comment?: Prisma.CommentOmit
+  rateComment?: Prisma.RateCommentOmit
+  likedCharacter?: Prisma.LikedCharacterOmit
+  likedLocation?: Prisma.LikedLocationOmit
+  likedEpisode?: Prisma.LikedEpisodeOmit
   emailVerificationToken?: Prisma.EmailVerificationTokenOmit
   passwordResetToken?: Prisma.PasswordResetTokenOmit
   refreshToken?: Prisma.RefreshTokenOmit

@@ -4,8 +4,12 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
+import { translate } from '../../common/i18n/translate.js';
 import { PrismaService } from '../prisma/prisma.service.js';
-import { SignInDto, SignUpDto } from './dto.js';
+import type {
+  SignInInput,
+  SignUpInput,
+} from './presentation/schemas/auth.schemas.js';
 import { TokenService } from './token.service.js';
 
 type Session = { ip?: string; userAgent?: string };
@@ -57,10 +61,12 @@ export class AuthService {
       refreshToken: refresh.token,
     };
   }
-  async signUp(dto: SignUpDto, session: Session) {
+  async signUp(dto: SignUpInput, session: Session) {
     const email = dto.email.trim().toLowerCase();
     if (await this.prisma.user.findUnique({ where: { email } }))
-      throw new ConflictException('E-mail já cadastrado.');
+      throw new ConflictException(
+        translate('errors.auth.emailAlreadyExists', 'E-mail já cadastrado.'),
+      );
     const user = await this.prisma.user.create({
       data: {
         email,
@@ -71,7 +77,7 @@ export class AuthService {
     });
     return this.issue(user, session);
   }
-  async signIn(dto: SignInDto, session: Session) {
+  async signIn(dto: SignInInput, session: Session) {
     const user = await this.prisma.user.findUnique({
       where: { email: dto.email.trim().toLowerCase() },
     });
@@ -81,7 +87,12 @@ export class AuthService {
         '$2b$12$DzXeBdvtHyEMJQ76zwaJWeococKTIO3J4DF7ztsAlWzRY70/chUuG',
     );
     if (!user || !valid)
-      throw new UnauthorizedException('E-mail ou senha inválidos.');
+      throw new UnauthorizedException(
+        translate(
+          'errors.auth.invalidCredentials',
+          'E-mail ou senha inválidos.',
+        ),
+      );
     return this.issue(user, session);
   }
   async refresh(raw: string, session: Session) {
@@ -95,13 +106,23 @@ export class AuthService {
       record.expiresAt < new Date() ||
       !(await bcrypt.compare(raw, record.tokenHash))
     )
-      throw new UnauthorizedException('Refresh token inválido.');
+      throw new UnauthorizedException(
+        translate(
+          'errors.auth.invalidRefreshToken',
+          'Refresh token inválido.',
+        ),
+      );
     if (record.revokedAt) {
       await this.prisma.refreshToken.updateMany({
         where: { userId: record.userId, revokedAt: null },
         data: { revokedAt: new Date() },
       });
-      throw new UnauthorizedException('Sessão comprometida.');
+      throw new UnauthorizedException(
+        translate(
+          'errors.auth.compromisedSession',
+          'Sessão comprometida.',
+        ),
+      );
     }
     const result = await this.issue(record.user, session);
     await this.prisma.refreshToken.update({
@@ -138,12 +159,34 @@ export class AuthService {
       orderBy: { createdAt: 'desc' },
     });
   }
+
+  async currentUser(userId: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        isEmailVerified: true,
+      },
+    });
+
+    if (!user)
+      throw new UnauthorizedException(
+        translate('errors.auth.userNotFound', 'Usuário não encontrado.'),
+      );
+
+    return user;
+  }
   async revokeSession(userId: string, id: string) {
     const result = await this.prisma.refreshToken.updateMany({
       where: { id, userId, revokedAt: null },
       data: { revokedAt: new Date() },
     });
     if (!result.count)
-      throw new UnauthorizedException('Sessão não encontrada.');
+      throw new UnauthorizedException(
+        translate('errors.auth.sessionNotFound', 'Sessão não encontrada.'),
+      );
   }
 }

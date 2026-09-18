@@ -1,0 +1,50 @@
+.shell {
+  --sidebar-width: 260px;
+  display: grid;
+  grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+  min-height: 100dvh;
+  color: var(--color-text-primary);
+  background-color: var(--color-background-canvas);
+  background-image:
+    linear-gradient(var(--color-overlay-page), var(--color-overlay-page)),
+    var(--image-background-app);
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  transition: grid-template-columns 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.shell[data-sidebar-collapsed='true'] {
+  --sidebar-width: 84px;
+}
+
+.shell::before {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  content: '';
+  background: radial-gradient(circle at center, transparent 34%, var(--color-overlay-edge) 120%);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  min-height: 100dvh;
+}
+
+@media (max-width: 680px) {
+  .shell {
+    --sidebar-width: 76px;
+  }
+
+  .shell[data-sidebar-collapsed='false'] {
+    --sidebar-width: 228px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shell,
+  .shell::before { transition: none; }
+}

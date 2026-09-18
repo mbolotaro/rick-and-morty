@@ -209,6 +209,11 @@ export type UserWhereInput = {
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
   emailVerificationTokens?: Prisma.EmailVerificationTokenListRelationFilter
   passwordResetTokens?: Prisma.PasswordResetTokenListRelationFilter
+  likedCharacters?: Prisma.LikedCharacterListRelationFilter
+  likedLocations?: Prisma.LikedLocationListRelationFilter
+  likedEpisodes?: Prisma.LikedEpisodeListRelationFilter
+  comments?: Prisma.CommentListRelationFilter
+  commentRatings?: Prisma.RateCommentListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -223,6 +228,11 @@ export type UserOrderByWithRelationInput = {
   refreshTokens?: Prisma.RefreshTokenOrderByRelationAggregateInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenOrderByRelationAggregateInput
   passwordResetTokens?: Prisma.PasswordResetTokenOrderByRelationAggregateInput
+  likedCharacters?: Prisma.LikedCharacterOrderByRelationAggregateInput
+  likedLocations?: Prisma.LikedLocationOrderByRelationAggregateInput
+  likedEpisodes?: Prisma.LikedEpisodeOrderByRelationAggregateInput
+  comments?: Prisma.CommentOrderByRelationAggregateInput
+  commentRatings?: Prisma.RateCommentOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -240,6 +250,11 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
   emailVerificationTokens?: Prisma.EmailVerificationTokenListRelationFilter
   passwordResetTokens?: Prisma.PasswordResetTokenListRelationFilter
+  likedCharacters?: Prisma.LikedCharacterListRelationFilter
+  likedLocations?: Prisma.LikedLocationListRelationFilter
+  likedEpisodes?: Prisma.LikedEpisodeListRelationFilter
+  comments?: Prisma.CommentListRelationFilter
+  commentRatings?: Prisma.RateCommentListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -282,6 +297,11 @@ export type UserCreateInput = {
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  likedCharacters?: Prisma.LikedCharacterCreateNestedManyWithoutUserInput
+  likedLocations?: Prisma.LikedLocationCreateNestedManyWithoutUserInput
+  likedEpisodes?: Prisma.LikedEpisodeCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  commentRatings?: Prisma.RateCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -296,6 +316,11 @@ export type UserUncheckedCreateInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  likedCharacters?: Prisma.LikedCharacterUncheckedCreateNestedManyWithoutUserInput
+  likedLocations?: Prisma.LikedLocationUncheckedCreateNestedManyWithoutUserInput
+  likedEpisodes?: Prisma.LikedEpisodeUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  commentRatings?: Prisma.RateCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -310,6 +335,11 @@ export type UserUpdateInput = {
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  likedCharacters?: Prisma.LikedCharacterUpdateManyWithoutUserNestedInput
+  likedLocations?: Prisma.LikedLocationUpdateManyWithoutUserNestedInput
+  likedEpisodes?: Prisma.LikedEpisodeUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  commentRatings?: Prisma.RateCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -324,6 +354,11 @@ export type UserUncheckedUpdateInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  likedCharacters?: Prisma.LikedCharacterUncheckedUpdateManyWithoutUserNestedInput
+  likedLocations?: Prisma.LikedLocationUncheckedUpdateManyWithoutUserNestedInput
+  likedEpisodes?: Prisma.LikedEpisodeUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  commentRatings?: Prisma.RateCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -409,6 +444,76 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type UserCreateNestedOneWithoutCommentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCommentsInput, Prisma.UserUncheckedCreateWithoutCommentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCommentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCommentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCommentsInput, Prisma.UserUncheckedCreateWithoutCommentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCommentsInput
+  upsert?: Prisma.UserUpsertWithoutCommentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCommentsInput, Prisma.UserUpdateWithoutCommentsInput>, Prisma.UserUncheckedUpdateWithoutCommentsInput>
+}
+
+export type UserCreateNestedOneWithoutCommentRatingsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCommentRatingsInput, Prisma.UserUncheckedCreateWithoutCommentRatingsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCommentRatingsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCommentRatingsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCommentRatingsInput, Prisma.UserUncheckedCreateWithoutCommentRatingsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCommentRatingsInput
+  upsert?: Prisma.UserUpsertWithoutCommentRatingsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCommentRatingsInput, Prisma.UserUpdateWithoutCommentRatingsInput>, Prisma.UserUncheckedUpdateWithoutCommentRatingsInput>
+}
+
+export type UserCreateNestedOneWithoutLikedCharactersInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLikedCharactersInput, Prisma.UserUncheckedCreateWithoutLikedCharactersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLikedCharactersInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutLikedCharactersNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLikedCharactersInput, Prisma.UserUncheckedCreateWithoutLikedCharactersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLikedCharactersInput
+  upsert?: Prisma.UserUpsertWithoutLikedCharactersInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLikedCharactersInput, Prisma.UserUpdateWithoutLikedCharactersInput>, Prisma.UserUncheckedUpdateWithoutLikedCharactersInput>
+}
+
+export type UserCreateNestedOneWithoutLikedLocationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLikedLocationsInput, Prisma.UserUncheckedCreateWithoutLikedLocationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLikedLocationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutLikedLocationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLikedLocationsInput, Prisma.UserUncheckedCreateWithoutLikedLocationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLikedLocationsInput
+  upsert?: Prisma.UserUpsertWithoutLikedLocationsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLikedLocationsInput, Prisma.UserUpdateWithoutLikedLocationsInput>, Prisma.UserUncheckedUpdateWithoutLikedLocationsInput>
+}
+
+export type UserCreateNestedOneWithoutLikedEpisodesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLikedEpisodesInput, Prisma.UserUncheckedCreateWithoutLikedEpisodesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLikedEpisodesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutLikedEpisodesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLikedEpisodesInput, Prisma.UserUncheckedCreateWithoutLikedEpisodesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLikedEpisodesInput
+  upsert?: Prisma.UserUpsertWithoutLikedEpisodesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLikedEpisodesInput, Prisma.UserUpdateWithoutLikedEpisodesInput>, Prisma.UserUncheckedUpdateWithoutLikedEpisodesInput>
+}
+
 export type UserCreateNestedOneWithoutEmailVerificationTokensInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutEmailVerificationTokensInput, Prisma.UserUncheckedCreateWithoutEmailVerificationTokensInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutEmailVerificationTokensInput
@@ -451,6 +556,446 @@ export type UserUpdateOneRequiredWithoutRefreshTokensNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRefreshTokensInput, Prisma.UserUpdateWithoutRefreshTokensInput>, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>
 }
 
+export type UserCreateWithoutCommentsInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  email: string
+  passwordHash: string
+  isEmailVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  likedCharacters?: Prisma.LikedCharacterCreateNestedManyWithoutUserInput
+  likedLocations?: Prisma.LikedLocationCreateNestedManyWithoutUserInput
+  likedEpisodes?: Prisma.LikedEpisodeCreateNestedManyWithoutUserInput
+  commentRatings?: Prisma.RateCommentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutCommentsInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  email: string
+  passwordHash: string
+  isEmailVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  likedCharacters?: Prisma.LikedCharacterUncheckedCreateNestedManyWithoutUserInput
+  likedLocations?: Prisma.LikedLocationUncheckedCreateNestedManyWithoutUserInput
+  likedEpisodes?: Prisma.LikedEpisodeUncheckedCreateNestedManyWithoutUserInput
+  commentRatings?: Prisma.RateCommentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutCommentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCommentsInput, Prisma.UserUncheckedCreateWithoutCommentsInput>
+}
+
+export type UserUpsertWithoutCommentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCommentsInput, Prisma.UserUncheckedUpdateWithoutCommentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCommentsInput, Prisma.UserUncheckedCreateWithoutCommentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCommentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCommentsInput, Prisma.UserUncheckedUpdateWithoutCommentsInput>
+}
+
+export type UserUpdateWithoutCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  likedCharacters?: Prisma.LikedCharacterUpdateManyWithoutUserNestedInput
+  likedLocations?: Prisma.LikedLocationUpdateManyWithoutUserNestedInput
+  likedEpisodes?: Prisma.LikedEpisodeUpdateManyWithoutUserNestedInput
+  commentRatings?: Prisma.RateCommentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  likedCharacters?: Prisma.LikedCharacterUncheckedUpdateManyWithoutUserNestedInput
+  likedLocations?: Prisma.LikedLocationUncheckedUpdateManyWithoutUserNestedInput
+  likedEpisodes?: Prisma.LikedEpisodeUncheckedUpdateManyWithoutUserNestedInput
+  commentRatings?: Prisma.RateCommentUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutCommentRatingsInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  email: string
+  passwordHash: string
+  isEmailVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  likedCharacters?: Prisma.LikedCharacterCreateNestedManyWithoutUserInput
+  likedLocations?: Prisma.LikedLocationCreateNestedManyWithoutUserInput
+  likedEpisodes?: Prisma.LikedEpisodeCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutCommentRatingsInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  email: string
+  passwordHash: string
+  isEmailVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  likedCharacters?: Prisma.LikedCharacterUncheckedCreateNestedManyWithoutUserInput
+  likedLocations?: Prisma.LikedLocationUncheckedCreateNestedManyWithoutUserInput
+  likedEpisodes?: Prisma.LikedEpisodeUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutCommentRatingsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCommentRatingsInput, Prisma.UserUncheckedCreateWithoutCommentRatingsInput>
+}
+
+export type UserUpsertWithoutCommentRatingsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCommentRatingsInput, Prisma.UserUncheckedUpdateWithoutCommentRatingsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCommentRatingsInput, Prisma.UserUncheckedCreateWithoutCommentRatingsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCommentRatingsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCommentRatingsInput, Prisma.UserUncheckedUpdateWithoutCommentRatingsInput>
+}
+
+export type UserUpdateWithoutCommentRatingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  likedCharacters?: Prisma.LikedCharacterUpdateManyWithoutUserNestedInput
+  likedLocations?: Prisma.LikedLocationUpdateManyWithoutUserNestedInput
+  likedEpisodes?: Prisma.LikedEpisodeUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCommentRatingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  likedCharacters?: Prisma.LikedCharacterUncheckedUpdateManyWithoutUserNestedInput
+  likedLocations?: Prisma.LikedLocationUncheckedUpdateManyWithoutUserNestedInput
+  likedEpisodes?: Prisma.LikedEpisodeUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutLikedCharactersInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  email: string
+  passwordHash: string
+  isEmailVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  likedLocations?: Prisma.LikedLocationCreateNestedManyWithoutUserInput
+  likedEpisodes?: Prisma.LikedEpisodeCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  commentRatings?: Prisma.RateCommentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutLikedCharactersInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  email: string
+  passwordHash: string
+  isEmailVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  likedLocations?: Prisma.LikedLocationUncheckedCreateNestedManyWithoutUserInput
+  likedEpisodes?: Prisma.LikedEpisodeUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  commentRatings?: Prisma.RateCommentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutLikedCharactersInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutLikedCharactersInput, Prisma.UserUncheckedCreateWithoutLikedCharactersInput>
+}
+
+export type UserUpsertWithoutLikedCharactersInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutLikedCharactersInput, Prisma.UserUncheckedUpdateWithoutLikedCharactersInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutLikedCharactersInput, Prisma.UserUncheckedCreateWithoutLikedCharactersInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutLikedCharactersInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutLikedCharactersInput, Prisma.UserUncheckedUpdateWithoutLikedCharactersInput>
+}
+
+export type UserUpdateWithoutLikedCharactersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  likedLocations?: Prisma.LikedLocationUpdateManyWithoutUserNestedInput
+  likedEpisodes?: Prisma.LikedEpisodeUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  commentRatings?: Prisma.RateCommentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutLikedCharactersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  likedLocations?: Prisma.LikedLocationUncheckedUpdateManyWithoutUserNestedInput
+  likedEpisodes?: Prisma.LikedEpisodeUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  commentRatings?: Prisma.RateCommentUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutLikedLocationsInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  email: string
+  passwordHash: string
+  isEmailVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  likedCharacters?: Prisma.LikedCharacterCreateNestedManyWithoutUserInput
+  likedEpisodes?: Prisma.LikedEpisodeCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  commentRatings?: Prisma.RateCommentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutLikedLocationsInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  email: string
+  passwordHash: string
+  isEmailVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  likedCharacters?: Prisma.LikedCharacterUncheckedCreateNestedManyWithoutUserInput
+  likedEpisodes?: Prisma.LikedEpisodeUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  commentRatings?: Prisma.RateCommentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutLikedLocationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutLikedLocationsInput, Prisma.UserUncheckedCreateWithoutLikedLocationsInput>
+}
+
+export type UserUpsertWithoutLikedLocationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutLikedLocationsInput, Prisma.UserUncheckedUpdateWithoutLikedLocationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutLikedLocationsInput, Prisma.UserUncheckedCreateWithoutLikedLocationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutLikedLocationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutLikedLocationsInput, Prisma.UserUncheckedUpdateWithoutLikedLocationsInput>
+}
+
+export type UserUpdateWithoutLikedLocationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  likedCharacters?: Prisma.LikedCharacterUpdateManyWithoutUserNestedInput
+  likedEpisodes?: Prisma.LikedEpisodeUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  commentRatings?: Prisma.RateCommentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutLikedLocationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  likedCharacters?: Prisma.LikedCharacterUncheckedUpdateManyWithoutUserNestedInput
+  likedEpisodes?: Prisma.LikedEpisodeUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  commentRatings?: Prisma.RateCommentUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutLikedEpisodesInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  email: string
+  passwordHash: string
+  isEmailVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  likedCharacters?: Prisma.LikedCharacterCreateNestedManyWithoutUserInput
+  likedLocations?: Prisma.LikedLocationCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  commentRatings?: Prisma.RateCommentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutLikedEpisodesInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  email: string
+  passwordHash: string
+  isEmailVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  likedCharacters?: Prisma.LikedCharacterUncheckedCreateNestedManyWithoutUserInput
+  likedLocations?: Prisma.LikedLocationUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  commentRatings?: Prisma.RateCommentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutLikedEpisodesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutLikedEpisodesInput, Prisma.UserUncheckedCreateWithoutLikedEpisodesInput>
+}
+
+export type UserUpsertWithoutLikedEpisodesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutLikedEpisodesInput, Prisma.UserUncheckedUpdateWithoutLikedEpisodesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutLikedEpisodesInput, Prisma.UserUncheckedCreateWithoutLikedEpisodesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutLikedEpisodesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutLikedEpisodesInput, Prisma.UserUncheckedUpdateWithoutLikedEpisodesInput>
+}
+
+export type UserUpdateWithoutLikedEpisodesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  likedCharacters?: Prisma.LikedCharacterUpdateManyWithoutUserNestedInput
+  likedLocations?: Prisma.LikedLocationUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  commentRatings?: Prisma.RateCommentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutLikedEpisodesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  likedCharacters?: Prisma.LikedCharacterUncheckedUpdateManyWithoutUserNestedInput
+  likedLocations?: Prisma.LikedLocationUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  commentRatings?: Prisma.RateCommentUncheckedUpdateManyWithoutUserNestedInput
+}
+
 export type UserCreateWithoutEmailVerificationTokensInput = {
   id?: string
   firstName: string
@@ -462,6 +1007,11 @@ export type UserCreateWithoutEmailVerificationTokensInput = {
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  likedCharacters?: Prisma.LikedCharacterCreateNestedManyWithoutUserInput
+  likedLocations?: Prisma.LikedLocationCreateNestedManyWithoutUserInput
+  likedEpisodes?: Prisma.LikedEpisodeCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  commentRatings?: Prisma.RateCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEmailVerificationTokensInput = {
@@ -475,6 +1025,11 @@ export type UserUncheckedCreateWithoutEmailVerificationTokensInput = {
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  likedCharacters?: Prisma.LikedCharacterUncheckedCreateNestedManyWithoutUserInput
+  likedLocations?: Prisma.LikedLocationUncheckedCreateNestedManyWithoutUserInput
+  likedEpisodes?: Prisma.LikedEpisodeUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  commentRatings?: Prisma.RateCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEmailVerificationTokensInput = {
@@ -504,6 +1059,11 @@ export type UserUpdateWithoutEmailVerificationTokensInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  likedCharacters?: Prisma.LikedCharacterUpdateManyWithoutUserNestedInput
+  likedLocations?: Prisma.LikedLocationUpdateManyWithoutUserNestedInput
+  likedEpisodes?: Prisma.LikedEpisodeUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  commentRatings?: Prisma.RateCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmailVerificationTokensInput = {
@@ -517,6 +1077,11 @@ export type UserUncheckedUpdateWithoutEmailVerificationTokensInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  likedCharacters?: Prisma.LikedCharacterUncheckedUpdateManyWithoutUserNestedInput
+  likedLocations?: Prisma.LikedLocationUncheckedUpdateManyWithoutUserNestedInput
+  likedEpisodes?: Prisma.LikedEpisodeUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  commentRatings?: Prisma.RateCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPasswordResetTokensInput = {
@@ -530,6 +1095,11 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  likedCharacters?: Prisma.LikedCharacterCreateNestedManyWithoutUserInput
+  likedLocations?: Prisma.LikedLocationCreateNestedManyWithoutUserInput
+  likedEpisodes?: Prisma.LikedEpisodeCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  commentRatings?: Prisma.RateCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
@@ -543,6 +1113,11 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   updatedAt?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  likedCharacters?: Prisma.LikedCharacterUncheckedCreateNestedManyWithoutUserInput
+  likedLocations?: Prisma.LikedLocationUncheckedCreateNestedManyWithoutUserInput
+  likedEpisodes?: Prisma.LikedEpisodeUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  commentRatings?: Prisma.RateCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
@@ -572,6 +1147,11 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  likedCharacters?: Prisma.LikedCharacterUpdateManyWithoutUserNestedInput
+  likedLocations?: Prisma.LikedLocationUpdateManyWithoutUserNestedInput
+  likedEpisodes?: Prisma.LikedEpisodeUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  commentRatings?: Prisma.RateCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
@@ -585,6 +1165,11 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  likedCharacters?: Prisma.LikedCharacterUncheckedUpdateManyWithoutUserNestedInput
+  likedLocations?: Prisma.LikedLocationUncheckedUpdateManyWithoutUserNestedInput
+  likedEpisodes?: Prisma.LikedEpisodeUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  commentRatings?: Prisma.RateCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRefreshTokensInput = {
@@ -598,6 +1183,11 @@ export type UserCreateWithoutRefreshTokensInput = {
   updatedAt?: Date | string
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  likedCharacters?: Prisma.LikedCharacterCreateNestedManyWithoutUserInput
+  likedLocations?: Prisma.LikedLocationCreateNestedManyWithoutUserInput
+  likedEpisodes?: Prisma.LikedEpisodeCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  commentRatings?: Prisma.RateCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -611,6 +1201,11 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   updatedAt?: Date | string
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  likedCharacters?: Prisma.LikedCharacterUncheckedCreateNestedManyWithoutUserInput
+  likedLocations?: Prisma.LikedLocationUncheckedCreateNestedManyWithoutUserInput
+  likedEpisodes?: Prisma.LikedEpisodeUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  commentRatings?: Prisma.RateCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -640,6 +1235,11 @@ export type UserUpdateWithoutRefreshTokensInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  likedCharacters?: Prisma.LikedCharacterUpdateManyWithoutUserNestedInput
+  likedLocations?: Prisma.LikedLocationUpdateManyWithoutUserNestedInput
+  likedEpisodes?: Prisma.LikedEpisodeUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  commentRatings?: Prisma.RateCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -653,6 +1253,11 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  likedCharacters?: Prisma.LikedCharacterUncheckedUpdateManyWithoutUserNestedInput
+  likedLocations?: Prisma.LikedLocationUncheckedUpdateManyWithoutUserNestedInput
+  likedEpisodes?: Prisma.LikedEpisodeUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  commentRatings?: Prisma.RateCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -664,12 +1269,22 @@ export type UserCountOutputType = {
   refreshTokens: number
   emailVerificationTokens: number
   passwordResetTokens: number
+  likedCharacters: number
+  likedLocations: number
+  likedEpisodes: number
+  comments: number
+  commentRatings: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
   emailVerificationTokens?: boolean | UserCountOutputTypeCountEmailVerificationTokensArgs
   passwordResetTokens?: boolean | UserCountOutputTypeCountPasswordResetTokensArgs
+  likedCharacters?: boolean | UserCountOutputTypeCountLikedCharactersArgs
+  likedLocations?: boolean | UserCountOutputTypeCountLikedLocationsArgs
+  likedEpisodes?: boolean | UserCountOutputTypeCountLikedEpisodesArgs
+  comments?: boolean | UserCountOutputTypeCountCommentsArgs
+  commentRatings?: boolean | UserCountOutputTypeCountCommentRatingsArgs
 }
 
 /**
@@ -703,6 +1318,41 @@ export type UserCountOutputTypeCountPasswordResetTokensArgs<ExtArgs extends runt
   where?: Prisma.PasswordResetTokenWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountLikedCharactersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LikedCharacterWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountLikedLocationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LikedLocationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountLikedEpisodesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LikedEpisodeWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CommentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCommentRatingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RateCommentWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -716,6 +1366,11 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   emailVerificationTokens?: boolean | Prisma.User$emailVerificationTokensArgs<ExtArgs>
   passwordResetTokens?: boolean | Prisma.User$passwordResetTokensArgs<ExtArgs>
+  likedCharacters?: boolean | Prisma.User$likedCharactersArgs<ExtArgs>
+  likedLocations?: boolean | Prisma.User$likedLocationsArgs<ExtArgs>
+  likedEpisodes?: boolean | Prisma.User$likedEpisodesArgs<ExtArgs>
+  comments?: boolean | Prisma.User$commentsArgs<ExtArgs>
+  commentRatings?: boolean | Prisma.User$commentRatingsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -757,6 +1412,11 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   emailVerificationTokens?: boolean | Prisma.User$emailVerificationTokensArgs<ExtArgs>
   passwordResetTokens?: boolean | Prisma.User$passwordResetTokensArgs<ExtArgs>
+  likedCharacters?: boolean | Prisma.User$likedCharactersArgs<ExtArgs>
+  likedLocations?: boolean | Prisma.User$likedLocationsArgs<ExtArgs>
+  likedEpisodes?: boolean | Prisma.User$likedEpisodesArgs<ExtArgs>
+  comments?: boolean | Prisma.User$commentsArgs<ExtArgs>
+  commentRatings?: boolean | Prisma.User$commentRatingsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -768,6 +1428,11 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
     emailVerificationTokens: Prisma.$EmailVerificationTokenPayload<ExtArgs>[]
     passwordResetTokens: Prisma.$PasswordResetTokenPayload<ExtArgs>[]
+    likedCharacters: Prisma.$LikedCharacterPayload<ExtArgs>[]
+    likedLocations: Prisma.$LikedLocationPayload<ExtArgs>[]
+    likedEpisodes: Prisma.$LikedEpisodePayload<ExtArgs>[]
+    comments: Prisma.$CommentPayload<ExtArgs>[]
+    commentRatings: Prisma.$RateCommentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1175,6 +1840,11 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   refreshTokens<T extends Prisma.User$refreshTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   emailVerificationTokens<T extends Prisma.User$emailVerificationTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$emailVerificationTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmailVerificationTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   passwordResetTokens<T extends Prisma.User$passwordResetTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$passwordResetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  likedCharacters<T extends Prisma.User$likedCharactersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$likedCharactersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LikedCharacterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  likedLocations<T extends Prisma.User$likedLocationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$likedLocationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LikedLocationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  likedEpisodes<T extends Prisma.User$likedEpisodesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$likedEpisodesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LikedEpisodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  comments<T extends Prisma.User$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  commentRatings<T extends Prisma.User$commentRatingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$commentRatingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RateCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1674,6 +2344,126 @@ export type User$passwordResetTokensArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.PasswordResetTokenScalarFieldEnum | Prisma.PasswordResetTokenScalarFieldEnum[]
+}
+
+/**
+ * User.likedCharacters
+ */
+export type User$likedCharactersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LikedCharacter
+   */
+  select?: Prisma.LikedCharacterSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LikedCharacter
+   */
+  omit?: Prisma.LikedCharacterOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LikedCharacterInclude<ExtArgs> | null
+  where?: Prisma.LikedCharacterWhereInput
+  orderBy?: Prisma.LikedCharacterOrderByWithRelationInput | Prisma.LikedCharacterOrderByWithRelationInput[]
+  cursor?: Prisma.LikedCharacterWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LikedCharacterScalarFieldEnum | Prisma.LikedCharacterScalarFieldEnum[]
+}
+
+/**
+ * User.likedLocations
+ */
+export type User$likedLocationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LikedLocation
+   */
+  select?: Prisma.LikedLocationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LikedLocation
+   */
+  omit?: Prisma.LikedLocationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LikedLocationInclude<ExtArgs> | null
+  where?: Prisma.LikedLocationWhereInput
+  orderBy?: Prisma.LikedLocationOrderByWithRelationInput | Prisma.LikedLocationOrderByWithRelationInput[]
+  cursor?: Prisma.LikedLocationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LikedLocationScalarFieldEnum | Prisma.LikedLocationScalarFieldEnum[]
+}
+
+/**
+ * User.likedEpisodes
+ */
+export type User$likedEpisodesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LikedEpisode
+   */
+  select?: Prisma.LikedEpisodeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LikedEpisode
+   */
+  omit?: Prisma.LikedEpisodeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LikedEpisodeInclude<ExtArgs> | null
+  where?: Prisma.LikedEpisodeWhereInput
+  orderBy?: Prisma.LikedEpisodeOrderByWithRelationInput | Prisma.LikedEpisodeOrderByWithRelationInput[]
+  cursor?: Prisma.LikedEpisodeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LikedEpisodeScalarFieldEnum | Prisma.LikedEpisodeScalarFieldEnum[]
+}
+
+/**
+ * User.comments
+ */
+export type User$commentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Comment
+   */
+  select?: Prisma.CommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Comment
+   */
+  omit?: Prisma.CommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CommentInclude<ExtArgs> | null
+  where?: Prisma.CommentWhereInput
+  orderBy?: Prisma.CommentOrderByWithRelationInput | Prisma.CommentOrderByWithRelationInput[]
+  cursor?: Prisma.CommentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CommentScalarFieldEnum | Prisma.CommentScalarFieldEnum[]
+}
+
+/**
+ * User.commentRatings
+ */
+export type User$commentRatingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RateComment
+   */
+  select?: Prisma.RateCommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RateComment
+   */
+  omit?: Prisma.RateCommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RateCommentInclude<ExtArgs> | null
+  where?: Prisma.RateCommentWhereInput
+  orderBy?: Prisma.RateCommentOrderByWithRelationInput | Prisma.RateCommentOrderByWithRelationInput[]
+  cursor?: Prisma.RateCommentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RateCommentScalarFieldEnum | Prisma.RateCommentScalarFieldEnum[]
 }
 
 /**

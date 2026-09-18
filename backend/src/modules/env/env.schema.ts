@@ -10,6 +10,7 @@ const duration = (defaultValue: Duration) =>
     .transform((value): Duration => value as Duration);
 
 export const EnvSchema = z.object({
+  PORT: z.coerce.number().int().min(1).max(65535).default(3040),
   NODE_ENV: z
     .enum(['development', 'production', 'test'])
     .default('development'),
@@ -24,6 +25,7 @@ export const EnvSchema = z.object({
   JWT_ACCESS_EXPIRATION: duration('15m'),
   JWT_REFRESH_EXPIRATION: duration('30d'),
   CORS_ORIGIN: z.string().default('http://localhost:3001'),
+  RICK_AND_MORTY_API_URL: z.url().default('https://rickandmortyapi.com/api'),
 });
 
 export type AppEnv = z.infer<typeof EnvSchema>;

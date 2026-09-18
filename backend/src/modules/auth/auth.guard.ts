@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Request } from 'express';
+import { translate } from '../../common/i18n/translate.js';
 import { IS_PUBLIC_KEY } from './public.decorator.js';
 import { TokenService } from './token.service.js';
 
@@ -24,15 +25,24 @@ export class AuthGuard implements CanActivate {
     )
       return true;
     const request = context.switchToHttp().getRequest<Request>();
-    const bearer = request.headers.authorization?.match(/^Bearer\s+(.+)$/i)?.[1];
+    const bearer =
+      request.headers.authorization?.match(/^Bearer\s+(.+)$/i)?.[1];
     const token =
       bearer ?? (request.cookies?.access_token as string | undefined);
-    if (!token) throw new UnauthorizedException('Não autenticado.');
+    if (!token)
+      throw new UnauthorizedException(
+        translate('errors.auth.notAuthenticated', 'Não autenticado.'),
+      );
     try {
       request.user = await this.tokens.verifyAccess(token);
       return true;
     } catch {
-      throw new UnauthorizedException('Sessão inválida ou expirada.');
+      throw new UnauthorizedException(
+        translate(
+          'errors.auth.invalidSession',
+          'Sessão inválida ou expirada.',
+        ),
+      );
     }
   }
 }

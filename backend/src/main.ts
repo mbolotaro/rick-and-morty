@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
 import { AppModule } from './app.module.js';
 import { EnvService } from './modules/env/env.service.js';
@@ -8,11 +8,31 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const env = app.get(EnvService);
   app.use(cookieParser());
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
   app.enableCors({
     origin: env.get('CORS_ORIGIN').split(','),
     credentials: true,
   });
-  await app.listen(process.env.PORT ?? 3040);
+
+  const swaggerConfig = new DocumentBuilder()
+    .setTitle('PickleVerso API')
+    .setDescription(
+      'API de autenticação, catálogo, favoritos e comentários do PickleVerso.',
+    )
+    .setVersion('1.0')
+    .addCookieAuth('access_token', {
+      type: 'apiKey',
+      in: 'cookie',
+      name: 'access_token',
+    })
+    .build();
+  const swaggerDocument = () =>
+    SwaggerModule.createDocument(app, swaggerConfig);
+
+  SwaggerModule.setup('docs', app, swaggerDocument, {
+    customSiteTitle: 'PickleVerso API',
+    jsonDocumentUrl: 'docs-json',
+  });
+
+  await app.listen(env.get('PORT'));
 }
 await bootstrap();

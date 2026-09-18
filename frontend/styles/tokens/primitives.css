@@ -1,0 +1,47 @@
+:root {
+  /* Neutral primitives */
+  --primitive-black: #000000;
+  --primitive-white: #ffffff;
+  --primitive-forest-950: #020b07;
+  --primitive-forest-900: #06130d;
+  --primitive-forest-850: #091a12;
+  --primitive-forest-800: #0c2217;
+  --primitive-forest-700: #153725;
+  --primitive-forest-600: #24523a;
+  --primitive-mist-500: #708f7d;
+  --primitive-mist-400: #8da998;
+  --primitive-mist-300: #afc7b8;
+  --primitive-mist-200: #d0e0d6;
+  --primitive-mist-100: #edf7f0;
+
+  /* Portal green primitives */
+  --primitive-portal-950: #05220f;
+  --primitive-portal-900: #0a391b;
+  --primitive-portal-800: #105727;
+  --primitive-portal-700: #177b37;
+  --primitive-portal-600: #20a94b;
+  --primitive-portal-500: #35d862;
+  --primitive-portal-400: #67ed87;
+  --primitive-portal-300: #91f6a7;
+  --primitive-portal-200: #bdfbc9;
+  --primitive-portal-100: #e0ffe6;
+
+  /* Crystal grove primitives */
+  --primitive-space-950: #050d16;
+  --primitive-space-900: #081723;
+  --primitive-space-850: #0b202c;
+  --primitive-space-800: #102c39;
+  --primitive-space-700: #174657;
+  --primitive-crystal-600: #199fb3;
+  --primitive-crystal-500: #32c8d3;
+  --primitive-crystal-400: #66e6df;
+  --primitive-crystal-300: #9af5e8;
+  --primitive-meadow-400: #a9cf5a;
+  --primitive-sun-400: #eed578;
+  --primitive-aurora-400: #df7ac8;
+
+  /* Supporting primitives */
+  --primitive-cyan-400: #63d8cb;
+  --primitive-violet-400: #a28bec;
+  --primitive-rose-400: #f17496;
+}

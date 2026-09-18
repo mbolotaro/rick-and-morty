@@ -6,7 +6,6 @@ Aplicação web inspirada em Rick and Morty, com catálogo de personagens, epis�
 
 - `backend`: API NestJS, Prisma, PostgreSQL, Zod e Swagger.
 - `frontend`: aplicação Next.js com renderização no servidor, React Query e next-intl.
-- `mobile`: cliente experimental, não necessário para executar a aplicação web.
 
 ## Pré-requisitos
 

@@ -64,7 +64,7 @@ export function ResourceList({ resource, page, query }: ResourceListProps) {
         </nav>
       </header>
 
-      <form className={styles.filters}>
+      <form autoComplete="off" className={styles.filters}>
         <span className={styles.filterIcon}><SlidersHorizontal size={17} /></span>
         {filterNames[resource].map((filter) => {
           const filterOptions = getFilterOptions(filter);

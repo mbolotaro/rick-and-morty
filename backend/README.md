@@ -25,6 +25,29 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## Autenticação
+
+O backend não depende de Turbo. A autenticação segue o padrão do BidIn: JWT de
+acesso e refresh token em cookies HTTP-only, refresh persistido como hash,
+rotação a cada renovação e revogação de todas as sessões em caso de reutilização.
+
+Copie `.env.example` para `.env`, ajuste as variáveis `DB_*` e `JWT_SECRET`, então execute:
+
+```bash
+npm run prisma:migrate -- --name init
+npm run start:dev
+```
+
+Para iniciar o PostgreSQL localmente, com o `.env` do backend:
+
+```bash
+docker compose up -d
+```
+
+Rotas públicas: `POST /auth/sign-up`, `POST /auth/sign-in`, `POST /auth/refresh` e
+`POST /auth/sign-out`. Rotas protegidas: `GET /auth/sessions` e
+`DELETE /auth/sessions/:id`. No frontend, use `credentials: 'include'` nas requisições.
+
 ## Project setup
 
 ```bash
